@@ -1,0 +1,220 @@
+/**
+ * Name matching utilities to match Tankathon players with Barttorvik data
+ * Handles variations like "AJ" vs "A.J.", "Jr." vs "Jr", etc.
+ */
+
+/**
+ * Normalize a player name for comparison
+ * @param {string} name - Player name
+ * @returns {string} - Normalized name
+ */
+export function normalizeName(name) {
+  if (!name) return '';
+
+  return name
+    .toLowerCase()
+    .replace(/\./g, '')              // Remove periods (A.J. → AJ)
+    .replace(/['']/g, '')            // Remove apostrophes
+    .replace(/\s+/g, ' ')            // Normalize whitespace
+    .replace(/[^\w\s]/g, '')         // Remove special chars except spaces
+    .replace(/\b(jr|sr|ii|iii|iv|v)\b/gi, '') // Remove suffixes
+    .trim();
+}
+
+/**
+ * Normalize school/team name for comparison
+ * @param {string} school - School or team name
+ * @returns {string} - Normalized name
+ */
+export function normalizeSchool(school) {
+  if (!school) return '';
+
+  const schoolMappings = {
+    'north carolina': 'unc',
+    'uconn': 'connecticut',
+    'university of connecticut': 'connecticut',
+    'st. john\'s': 'st johns',
+    'saint john\'s': 'st johns',
+    'nc state': 'north carolina state',
+    'lsu': 'louisiana state',
+    'ole miss': 'mississippi',
+    'usc': 'southern california',
+    'ucla': 'ucla',
+    'ucf': 'central florida',
+    'smu': 'southern methodist',
+    'tcu': 'texas christian',
+    'unlv': 'nevada las vegas',
+    'vcu': 'virginia commonwealth',
+  };
+
+  const normalized = school.toLowerCase().replace(/[^\w\s]/g, '').trim();
+  return schoolMappings[normalized] || normalized;
+}
+
+/**
+ * Calculate similarity between two strings (simple Levenshtein-based)
+ * @param {string} a - First string
+ * @param {string} b - Second string
+ * @returns {number} - Similarity score (0-1, 1 = exact match)
+ */
+function calculateSimilarity(a, b) {
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+
+  const longer = a.length > b.length ? a : b;
+  const shorter = a.length > b.length ? b : a;
+
+  if (longer.length === 0) return 1;
+
+  // Simple substring check
+  if (longer.includes(shorter)) {
+    return shorter.length / longer.length;
+  }
+
+  // Check if one name contains the other's last name
+  const aWords = a.split(' ');
+  const bWords = b.split(' ');
+  const aLast = aWords[aWords.length - 1];
+  const bLast = bWords[bWords.length - 1];
+
+  if (aLast === bLast) {
+    return 0.8; // Same last name
+  }
+
+  return 0;
+}
+
+/**
+ * Known manual overrides for problematic matches
+ * Format: { normalizedTankathonName: barttorvikPlayerName }
+ */
+const MANUAL_OVERRIDES = {
+  // Add any known problem matches here
+  // 'aj dybantsa': 'A.J. Dybantsa',
+};
+
+/**
+ * Find the best Barttorvik match for a Tankathon player
+ * @param {object} tankathonPlayer - Player object from Tankathon parser
+ * @param {Array} barttorvikPlayers - Array of Barttorvik player stats
+ * @returns {object|null} - Matching Barttorvik player or null
+ */
+export function findBarttorvikMatch(tankathonPlayer, barttorvikPlayers) {
+  if (!barttorvikPlayers || barttorvikPlayers.length === 0) {
+    return null;
+  }
+
+  const normalizedTankathon = normalizeName(tankathonPlayer.name);
+  const tankathonSchool = normalizeSchool(tankathonPlayer.school);
+
+  // Check manual overrides first
+  if (MANUAL_OVERRIDES[normalizedTankathon]) {
+    const overrideName = MANUAL_OVERRIDES[normalizedTankathon];
+    const match = barttorvikPlayers.find(bp => bp.player_name === overrideName);
+    if (match) return match;
+  }
+
+  // Try exact normalized name match
+  let match = barttorvikPlayers.find(
+    bp => normalizeName(bp.player_name) === normalizedTankathon
+  );
+  if (match) return match;
+
+  // Try matching with school as secondary filter (helps with common names)
+  const schoolMatches = barttorvikPlayers.filter(bp => {
+    const bpSchool = normalizeSchool(bp.team);
+    return bpSchool === tankathonSchool ||
+           bpSchool.includes(tankathonSchool) ||
+           tankathonSchool.includes(bpSchool);
+  });
+
+  if (schoolMatches.length > 0) {
+    // Look for best name match within school matches
+    match = schoolMatches.find(
+      bp => normalizeName(bp.player_name) === normalizedTankathon
+    );
+    if (match) return match;
+
+    // Try partial name match within school
+    match = schoolMatches.find(bp => {
+      const normalizedBP = normalizeName(bp.player_name);
+      return normalizedBP.includes(normalizedTankathon) ||
+             normalizedTankathon.includes(normalizedBP);
+    });
+    if (match) return match;
+  }
+
+  // Try fuzzy matching on last name + school
+  const tankathonWords = normalizedTankathon.split(' ');
+  const tankathonLastName = tankathonWords[tankathonWords.length - 1];
+
+  const lastNameMatches = barttorvikPlayers.filter(bp => {
+    const normalizedBP = normalizeName(bp.player_name);
+    const bpWords = normalizedBP.split(' ');
+    const bpLastName = bpWords[bpWords.length - 1];
+    return bpLastName === tankathonLastName;
+  });
+
+  if (lastNameMatches.length === 1) {
+    return lastNameMatches[0];
+  }
+
+  // If multiple last name matches, filter by school
+  if (lastNameMatches.length > 1) {
+    const schoolFiltered = lastNameMatches.filter(bp => {
+      const bpSchool = normalizeSchool(bp.team);
+      return bpSchool === tankathonSchool ||
+             bpSchool.includes(tankathonSchool) ||
+             tankathonSchool.includes(bpSchool);
+    });
+    if (schoolFiltered.length === 1) {
+      return schoolFiltered[0];
+    }
+  }
+
+  // No match found (likely international player)
+  return null;
+}
+
+/**
+ * Match all Tankathon players to Barttorvik data
+ * Returns match results with statistics
+ * @param {Array} tankathonPlayers - Array of Tankathon player objects
+ * @param {Array} barttorvikPlayers - Array of Barttorvik player stats
+ * @returns {{ matches: Map, stats: { total, matched, unmatched, international } }}
+ */
+export function matchAllPlayers(tankathonPlayers, barttorvikPlayers) {
+  const matches = new Map();
+  let matched = 0;
+  let unmatched = 0;
+  let international = 0;
+
+  for (const tp of tankathonPlayers) {
+    const isInternational = tp.year === 'International';
+    const barttorvikMatch = findBarttorvikMatch(tp, barttorvikPlayers);
+
+    matches.set(tp.slug, {
+      tankathon: tp,
+      barttorvik: barttorvikMatch,
+      isInternational,
+    });
+
+    if (barttorvikMatch) {
+      matched++;
+    } else if (isInternational) {
+      international++;
+    } else {
+      unmatched++;
+    }
+  }
+
+  return {
+    matches,
+    stats: {
+      total: tankathonPlayers.length,
+      matched,
+      unmatched,
+      international,
+    }
+  };
+}

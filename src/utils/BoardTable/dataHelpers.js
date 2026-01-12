@@ -1,29 +1,57 @@
-import { calculateAge, formatHeight } from '../formatHelpers';
-import { calculateConsensusRank } from '../scoutHelpers';
+import { formatHeight } from '../formatHelpers';
 
-// Row data for the DataGrid
-export const generateTableRows = (players, scouts) => {
+/**
+ * Helper to get stat value for display
+ * @param {object} stats - Player stats object
+ * @param {string} key - Stat key
+ * @returns {string|number} - Stat value or 'N/A'
+ */
+const getStatValue = (stats, key) => {
+  if (!stats || stats[key] === null || stats[key] === undefined) {
+    return null;
+  }
+  return stats[key];
+};
+
+// Row data for the DataGrid (updated for Tankathon + Barttorvik data)
+export const generateTableRows = (players) => {
   return players.map((player) => {
-    const baseRow = {
-      id: player.playerId,
+    const stats = player.stats || {};
+
+    return {
+      // Base info
+      id: player.id || player.playerId,
       name: player.name,
-      rank: calculateConsensusRank(player.rankings, scouts),
-      age: calculateAge(player.birthDate),
-      height: formatHeight(player.height),
-      photoUrl: player.photoUrl,
+      rank: player.tankathonRank,
+      age: player.age,
+      height: player.heightDisplay || formatHeight(player.height),
+      photoUrl: player.photoUrl || null,
       school: player.currentTeam,
       leagueType: player.leagueType,
-      nationality: player.nationality,
+      nationality: player.nationality || 'USA',
       position: player.position,
+      year: player.year,
+
+      // Data availability flags
+      hasBarttorvikData: player.hasBarttorvikData,
+      isInternational: player.isInternational,
+
+      // Stats from Barttorvik (per-game)
+      GP: getStatValue(stats, 'GP'),
+      MP: getStatValue(stats, 'MP'),
+      PTS: getStatValue(stats, 'PTS'),
+      AST: getStatValue(stats, 'AST'),
+      TRB: getStatValue(stats, 'TRB'),
+      ORB: getStatValue(stats, 'ORB'),
+      DRB: getStatValue(stats, 'DRB'),
+      STL: getStatValue(stats, 'STL'),
+      BLK: getStatValue(stats, 'BLK'),
+      FGPct: getStatValue(stats, 'FG%'),
+      ThreePct: getStatValue(stats, '3P%'),
+      FTPct: getStatValue(stats, 'FT%'),
+      eFGPct: getStatValue(stats, 'eFG%'),
+      TSPct: getStatValue(stats, 'TS%'),
     };
-
-    // Dynamic scout rankings
-    scouts.forEach(scout => {
-      const fieldName = scout.key.toLowerCase().replace(/[^a-z0-9]/g, '');
-      baseRow[fieldName] = player.rankings?.[scout.key];
-    });
-
-    return baseRow;
   });
 };
 

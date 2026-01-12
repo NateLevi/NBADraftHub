@@ -3,7 +3,7 @@ import NavBar from '../components/Nav/NavBar';
 import { Container, Typography, Box } from '@mui/material';
 import { useResponsive } from '../hooks/useResponsive';
 
-export default function DraftHub({ players }) {
+export default function DraftHub() {
   const { isMobile, isTablet } = useResponsive();
   const isDesktopOnly = !isMobile && !isTablet; // Only true desktop
 
@@ -16,12 +16,12 @@ export default function DraftHub({ players }) {
     }}>
       <NavBar />
       
-      <Container 
+      <Container
         maxWidth={false}
         sx={{
           px: { xs: 1, sm: 2, md: 3, lg: 4 },
           py: { xs: 2, sm: 3, md: 2 },
-          maxWidth: { xs: '100%', lg: '1400px', xl: '1600px' },
+          maxWidth: { xs: '100%', lg: '1600px', xl: '1800px' },
           // Only constrain height on true desktop
           height: isDesktopOnly ? 'calc(100vh - 64px)' : 'auto',
           display: isDesktopOnly ? 'flex' : 'block',
@@ -57,7 +57,7 @@ export default function DraftHub({ players }) {
             overflow: isDesktopOnly ? 'hidden' : 'visible'
           }}
         >
-          <BoardTable players={players} />
+          <BoardTable />
         </Box>
       </Container>
     </div>

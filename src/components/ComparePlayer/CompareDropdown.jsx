@@ -8,7 +8,6 @@ import {
   Chip
 } from '@mui/material';
 import { usePlayers } from '../../contexts/playersContextDef';
-import { calculateConsensusRank } from '../../utils/scoutHelpers';
 
 // Styling constants
 const COLORS = {
@@ -23,24 +22,25 @@ const COLORS = {
   selectedHoverBg: 'rgba(0, 40, 94, 0.12)',
 };
 
-const CompareDropdown = ({ 
-  selectedPlayer, 
-  onPlayerChange, 
+const CompareDropdown = ({
+  selectedPlayer,
+  onPlayerChange,
   label = "Select Player",
-  excludePlayerId = null 
+  excludePlayerId = null
 }) => {
-  const { players, scouts } = usePlayers();
+  const { players } = usePlayers();
 
-  // Process and sort players by consensus rank
+  // Process and sort players by draft rank (tankathonRank)
   const sortedPlayers = useMemo(() => {
     return players
-      .filter(player => player.playerId !== excludePlayerId)
+      .filter(player => player.id !== excludePlayerId)
       .map(player => ({
         ...player,
-        consensusRank: calculateConsensusRank(player.rankings, scouts) || 999
+        // Use tankathonRank from new data structure
+        consensusRank: player.tankathonRank || 999
       }))
       .sort((a, b) => a.consensusRank - b.consensusRank);
-  }, [players, scouts, excludePlayerId]);
+  }, [players, excludePlayerId]);
 
   const handleChange = (event, newValue) => {
     onPlayerChange(newValue);
@@ -103,7 +103,7 @@ const CompareDropdown = ({
       onChange={handleChange}
       options={sortedPlayers}
       getOptionLabel={(option) => option?.name || ''}
-      isOptionEqualToValue={(option, value) => option?.playerId === value?.playerId}
+      isOptionEqualToValue={(option, value) => option?.id === value?.id}
       filterOptions={filterOptions}
       renderInput={(params) => (
         <TextField

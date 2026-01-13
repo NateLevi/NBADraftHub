@@ -17,7 +17,28 @@ export function normalizeName(name) {
     .replace(/['']/g, '')            // Remove apostrophes
     .replace(/\s+/g, ' ')            // Normalize whitespace
     .replace(/[^\w\s]/g, '')         // Remove special chars except spaces
-    .replace(/\b(jr|sr|ii|iii|iv|v)\b/gi, '') // Remove suffixes
+    // NOTE: We no longer remove suffixes (jr, sr, ii, iii) because some sources
+    // use them inconsistently (e.g., "Tarris Reed Jr." vs "Tarris Reed" for same player)
+    // The merge logic handles this with a separate fallback matching step
+    .trim();
+}
+
+/**
+ * Normalize name MORE aggressively (removes suffixes) for fallback matching
+ * @param {string} name - Player name
+ * @returns {string} - Normalized name without suffixes
+ */
+export function normalizeNameLoose(name) {
+  if (!name) return '';
+
+  return name
+    .toLowerCase()
+    .replace(/\./g, '')
+    .replace(/['']/g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/[^\w\s]/g, '')
+    .replace(/\b(jr|sr|ii|iii|iv|v)\b/gi, '') // Remove suffixes for loose matching
+    .replace(/\s+/g, ' ')            // Clean up double spaces from removed suffixes
     .trim();
 }
 
@@ -173,6 +194,55 @@ export function findBarttorvikMatch(tankathonPlayer, barttorvikPlayers) {
   }
 
   // No match found (likely international player)
+  return null;
+}
+
+/**
+ * Find a player by name in an array of player objects
+ * Uses normalized name matching for consistency across sources
+ * @param {string} targetName - Name to search for
+ * @param {Array} players - Array of player objects with 'name' property
+ * @returns {object|null} - Matching player or null
+ */
+export function findPlayerByName(targetName, players) {
+  if (!targetName || !players || players.length === 0) {
+    return null;
+  }
+
+  const normalizedTarget = normalizeName(targetName);
+
+  // Try exact normalized match first
+  const exactMatch = players.find(
+    p => normalizeName(p.name) === normalizedTarget
+  );
+  if (exactMatch) return exactMatch;
+
+  // Try partial match (handles cases like "Mikel Brown" vs "Mikel Brown Jr.")
+  const partialMatch = players.find(p => {
+    const normalizedPlayer = normalizeName(p.name);
+    return normalizedPlayer.includes(normalizedTarget) ||
+           normalizedTarget.includes(normalizedPlayer);
+  });
+  if (partialMatch) return partialMatch;
+
+  // Try last name match only (as fallback)
+  const targetWords = normalizedTarget.split(' ');
+  const targetLastName = targetWords[targetWords.length - 1];
+
+  if (targetLastName.length > 3) { // Only if last name is substantial
+    const lastNameMatches = players.filter(p => {
+      const normalizedPlayer = normalizeName(p.name);
+      const playerWords = normalizedPlayer.split(' ');
+      const playerLastName = playerWords[playerWords.length - 1];
+      return playerLastName === targetLastName;
+    });
+
+    // If exactly one match by last name, use it
+    if (lastNameMatches.length === 1) {
+      return lastNameMatches[0];
+    }
+  }
+
   return null;
 }
 

@@ -78,9 +78,9 @@ const PlayerSidebar = ({ isOpen, onClose, currentPlayerId }) => {
         <List sx={listStyles}>
           {processedPlayers.map((player) => (
             <PlayerListItem
-              key={player.playerId}
+              key={player.id}
               player={player}
-              isSelected={player.playerId === parseInt(currentPlayerId)}
+              isSelected={player.id === currentPlayerId}
               onClick={handlePlayerClick}
             />
           ))}

@@ -9,7 +9,7 @@ import {
 function PlayerListItem({ player, isSelected, onClick }) {
   return (
     <ListItem
-      onClick={() => onClick(player.playerId)}
+      onClick={() => onClick(player.id)}
       selected={isSelected}
       sx={getPlayerItemStyles(isSelected)}
     >

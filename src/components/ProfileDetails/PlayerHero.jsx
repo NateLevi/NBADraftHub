@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Box, Typography } from '@mui/material';
-import ReactCountryFlag from 'react-country-flag';
-import { calculateConsensusRank } from '../../utils/scoutHelpers';
-import { usePlayers } from '../../contexts/playersContextDef';
 import { teamData, defaultTeamBranding } from '../../data/teams/teamData';
-import { calculateAge, formatHeight, getCountryCode } from '../../utils/formatHelpers';
+import { formatHeight } from '../../utils/formatHelpers';
 
 const PlayerHero = ({ player }) => {
   const [teamBranding, setTeamBranding] = useState(defaultTeamBranding);
-  const { scouts } = usePlayers();
 
-  // Calculate player data
-  const playerRank = player?.rankings ? calculateConsensusRank(player.rankings, scouts) : null;
-  const age = calculateAge(player?.birthDate);
-  const height = formatHeight(player?.height);
+  // Calculate player data - adapted for new data structure
+  const playerRank = player?.tankathonRank;
+  // Use pre-calculated age or heightDisplay from new data structure
+  const age = player?.age ? player.age.toFixed(1) : null;
+  const height = player?.heightDisplay || formatHeight(player?.height);
   const weight = player?.weight;
-  const countryCode = getCountryCode(player?.nationality);
-  const playerName = `${player?.firstName || ''} ${player?.lastName || ''}`.trim() || 'Player';
+  const playerName = player?.name || 'Player';
 
   // Animation variants
   const fadeInUp = {
@@ -196,31 +192,24 @@ const PlayerHero = ({ player }) => {
                 </div>
               )}
 
-              {countryCode && (
+              {player.year && (
                 <div>
                   <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.8)', display: 'block' }}>
-                    FROM
+                    YEAR
                   </Typography>
-                  <div className="flex items-center justify-center gap-1">
-                    <ReactCountryFlag 
-                      countryCode={countryCode}
-                      svg
-                      style={{ width: '1.2em', height: '1.2em' }}
-                    />
-                    <Typography variant="h6" sx={{ color: teamBranding.textColor, fontWeight: 'bold' }}>
-                      {player.nationality}
-                    </Typography>
-                  </div>
+                  <Typography variant="h6" sx={{ color: teamBranding.textColor, fontWeight: 'bold' }}>
+                    {player.year}
+                  </Typography>
                 </div>
               )}
 
-              {(teamBranding.name !== 'N/A' || player.league) && (
+              {(teamBranding.name !== 'N/A' || player.leagueType) && (
                 <div className="md:col-span-3">
                   <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.8)', display: 'block' }}>
                     SCHOOL
                   </Typography>
                   <Typography variant="h6" sx={{ color: teamBranding.textColor, fontWeight: 'bold' }}>
-                    {teamBranding.name !== 'N/A' ? teamBranding.name : 'N/A'} {player.league && `(${player.league})`}
+                    {teamBranding.name !== 'N/A' ? teamBranding.name : 'N/A'} {player.leagueType && `(${player.leagueType})`}
                   </Typography>
                 </div>
               )}

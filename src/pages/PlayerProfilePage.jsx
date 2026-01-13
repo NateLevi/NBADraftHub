@@ -26,7 +26,8 @@ const PlayerProfilePage = () => {
 
   // Fetch the player data based on the playerId
   useEffect(() => {
-    const foundPlayer = players.find(p => p.playerId === parseInt(playerId, 10));
+    // New data uses string IDs like "tank_darryn-peterson"
+    const foundPlayer = players.find(p => p.id === playerId);
     setCurrentPlayer(foundPlayer);
   }, [playerId, players]);
 

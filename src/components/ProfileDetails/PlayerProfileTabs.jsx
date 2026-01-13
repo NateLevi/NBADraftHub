@@ -7,14 +7,12 @@ import { useResponsive } from '../../hooks/useResponsive';
 // Icons
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import DescriptionIcon from '@mui/icons-material/Description';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 // Constants
 const SECTIONS = [
   { id: 'scout-ranks', label: 'Scout Ranks', icon: <AssessmentIcon /> },
   { id: 'statistics', label: 'Statistics', icon: <BarChartIcon />},
-  { id: 'reports', label: 'Reports', icon: <DescriptionIcon />},
   { id: 'physical', label: 'Physical', icon: <FitnessCenterIcon /> },
 ];
 

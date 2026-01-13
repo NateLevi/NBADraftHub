@@ -11,13 +11,11 @@ import {
   Paper,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { calculateConsensusRank } from '../../utils/scoutHelpers';
-import { usePlayers } from '../../contexts/playersContextDef';
-import { 
-  getLatestSeasonStats, 
-  formatStatValue, 
-  getComparisonCellColor, 
-  createStatsComparisonData 
+import {
+  getPlayerStats,
+  formatStatValue,
+  getComparisonCellColor,
+  createStatsComparisonData
 } from '../../utils/compareHelpers';
 
 // Styling constants
@@ -33,20 +31,20 @@ const COLORS = {
 // Player Card Component
 const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
   const navigate = useNavigate();
-  const { scouts } = usePlayers();
-  
-  const rank = player?.rankings ? calculateConsensusRank(player.rankings, scouts) : null;
-  
+
+  // Use tankathonRank from new data structure
+  const rank = player?.tankathonRank;
+
   const handlePlayerClick = () => {
-    if (player?.playerId) {
-      navigate(`/players/${player.playerId}`);
+    if (player?.id) {
+      navigate(`/players/${player.id}`);
     }
   };
 
-  const getPlayerStats = (stat) => {
+  const getStatForComparison = (stat) => {
     const statKey = isPlayerA ? stat.keyA : stat.keyB;
     const otherStatKey = isPlayerA ? stat.keyB : stat.keyA;
-    
+
     return {
       value: formatStatValue(statKey, stat.stat),
       backgroundColor: getComparisonCellColor(statKey, otherStatKey, stat.higherIsBetter)
@@ -140,7 +138,7 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
         <Table size="medium">
           <TableBody>
             {statsComparison.map((stat, index) => {
-              const playerStats = getPlayerStats(stat);
+              const playerStats = getStatForComparison(stat);
               
               return (
                 <TableRow key={index}>
@@ -178,9 +176,9 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
 
 // Main Compare Card Component
 const CompareCard = ({ playerA, playerB }) => {
-  // Get latest stats for both players
-  const playerAStats = getLatestSeasonStats(playerA);
-  const playerBStats = getLatestSeasonStats(playerB);
+  // Get stats for both players from new data structure
+  const playerAStats = getPlayerStats(playerA);
+  const playerBStats = getPlayerStats(playerB);
 
   // Create stats comparison data
   const statsComparison = createStatsComparisonData(playerA, playerB, playerAStats, playerBStats);

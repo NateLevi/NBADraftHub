@@ -1,10 +1,96 @@
 /**
- * Merge Tankathon draft rankings with Barttorvik player stats
- * Creates a unified data structure for the BoardTable
+ * Merge multiple draft ranking sources with Barttorvik player stats
+ * Creates a unified data structure with consensus rankings for the BoardTable
+ * 
+ * Also integrates pre-scraped international player stats from Tankathon
  */
 
 import { parseTankathonMarkdown } from './parseTankathon';
-import { findBarttorvikMatch } from './nameMatching';
+import { parseNBADraftNetMarkdown } from './parseNBADraftNet';
+import { findBarttorvikMatch, findPlayerByName, normalizeName, normalizeNameLoose } from './nameMatching';
+
+// Import pre-scraped international player stats
+// Using Vite's JSON import - will be empty object if file is missing
+import internationalStatsJson from '../data/fireCrawl/DraftmdFiles/international-stats.json';
+const internationalStatsData = internationalStatsJson || null;
+
+/**
+ * Map Tankathon slugs to image filenames where they differ
+ * Image files are in public/players/{slug}.jpg
+ */
+const SLUG_TO_IMAGE_MAP = {
+  'patrick-ngongba-ii': 'patrick-ngongba',
+  'darius-acuff': 'darius-acuff-jr',
+  'sergio-de-larrea': 'sergio-de-larrea-asenjo',
+  'jojo-tugler': 'joseph-tugler',
+  'johann-grunloh': 'johann-gruenloh',
+};
+
+/**
+ * Get the image filename for a player slug
+ * @param {string} slug - Player slug
+ * @returns {string} - Image filename (without extension)
+ */
+function getImageSlug(slug) {
+  return SLUG_TO_IMAGE_MAP[slug] || slug;
+}
+
+/**
+ * Get international player stats from pre-scraped data
+ * @param {string} slug - Player slug
+ * @returns {object|null} - Stats object or null if not found
+ */
+function getInternationalStats(slug) {
+  if (!internationalStatsData?.players) return null;
+  const playerData = internationalStatsData.players[slug];
+  return playerData?.stats || null;
+}
+
+/**
+ * Map international player stats from Tankathon to our display format
+ * @param {object} stats - Stats from Tankathon player page
+ * @returns {object} - Mapped stats for display
+ */
+function mapInternationalStats(stats) {
+  if (!stats) return null;
+
+  // Stats from Tankathon are already in a compatible format
+  // Just ensure all expected keys exist
+  return {
+    GP: stats.GP,
+    MP: stats.MP,
+    PTS: stats.PTS,
+    FGM: stats.FGM,
+    FGA: stats.FGA,
+    'FG%': stats['FG%'],
+    '2PM': null, // Not typically available from Tankathon
+    '2PA': null,
+    '2P%': null,
+    '3PM': stats['3PM'],
+    '3PA': stats['3PA'],
+    '3P%': stats['3P%'],
+    FTM: stats.FTM,
+    FTA: stats.FTA,
+    'FT%': stats['FT%'],
+    ORB: stats.ORB,
+    DRB: stats.DRB,
+    TRB: stats.TRB,
+    AST: stats.AST,
+    STL: stats.STL,
+    BLK: stats.BLK,
+    'eFG%': stats['eFG%'],
+    'TS%': stats['TS%'],
+    USG: stats.USG,
+    ORtg: stats.ORtg,
+    DRtg: stats.DRtg,
+    BPM: stats.BPM,
+    OBPM: stats.OBPM,
+    DBPM: stats.DBPM,
+    team: stats.team,
+    conf: null, // International players don't have conference
+    source: 'tankathon', // Mark the data source
+  };
+}
 
 /**
  * Map Barttorvik stats to our display format
@@ -27,7 +113,6 @@ function mapBarttorvikStats(bt) {
   // Helper to convert decimal to percentage
   const toPct = (val) => {
     if (val === null || val === undefined || isNaN(val)) return null;
-    // If value is already > 1, it's probably already a percentage
     if (val > 1) return round(val);
     return round(val * 100);
   };
@@ -44,140 +129,289 @@ function mapBarttorvikStats(bt) {
   const fgPct = fga > 0 ? (fgm / fga) * 100 : null;
 
   return {
-    // Game info
     GP: bt.GP,
-    MP: round(bt.Min_per), // Min_per is already per-game
-
-    // Scoring - pts is already per-game
+    MP: round(bt.Min_per),
     PTS: round(bt.pts),
-
-    // Field Goals - these are totals, convert to per-game
     FGM: perGame(fgm),
     FGA: perGame(fga),
     'FG%': round(fgPct),
-
-    // 2-pointers - totals, convert to per-game
     '2PM': perGame(bt.twoPM),
     '2PA': perGame(bt.twoPA),
     '2P%': toPct(bt.twoP_per),
-
-    // 3-pointers - totals, convert to per-game
     '3PM': perGame(bt.TPM),
     '3PA': perGame(bt.TPA),
     '3P%': toPct(bt.TP_per),
-
-    // Free throws - totals, convert to per-game
     FTM: perGame(bt.FTM),
     FTA: perGame(bt.FTA),
     'FT%': toPct(bt.FT_per),
-
-    // Rebounds - already per-game
     ORB: round(bt.oreb),
     DRB: round(bt.dreb),
     TRB: round(bt.treb),
-
-    // Other stats - already per-game
     AST: round(bt.ast),
     STL: round(bt.stl),
     BLK: round(bt.blk),
-
-    // Advanced stats
-    'eFG%': round(bt.eFG), // Already a percentage
-    'TS%': round(bt.TS_per), // Already a percentage
+    'eFG%': round(bt.eFG),
+    'TS%': round(bt.TS_per),
     USG: round(bt.usg),
     ORtg: round(bt.ORtg, 0),
     DRtg: round(bt.drtg, 0),
     BPM: round(bt.bpm),
     OBPM: round(bt.obpm),
     DBPM: round(bt.dbpm),
-
-    // Team info
     team: bt.team,
     conf: bt.conf,
   };
 }
 
 /**
- * Generate a unique player ID from tankathon data
- * @param {object} tankathonPlayer - Tankathon player object
+ * Generate a unique player ID from slug
+ * @param {string} slug - Player slug
  * @returns {string} - Unique ID
  */
-function generatePlayerId(tankathonPlayer) {
-  return `tank_${tankathonPlayer.slug}`;
+function generatePlayerId(slug) {
+  return `player_${slug}`;
 }
 
 /**
- * Merge Tankathon and Barttorvik data into unified player objects
- * @param {string} tankathonMarkdown - Raw markdown content from tankathon.md
- * @param {Array} barttorvikData - Array of Barttorvik player stats from API
+ * Calculate consensus rank from available rankings (Tankathon + NBADraft.net only)
+ * @param {number|null} tankathonRank
+ * @param {number|null} nbaDraftNetRank
+ * @returns {number} - Average of available ranks, or 999 if none
+ */
+function calculateConsensusRank(tankathonRank, nbaDraftNetRank) {
+  const ranks = [tankathonRank, nbaDraftNetRank].filter(
+    r => r !== null && r !== undefined && r > 0
+  );
+
+  if (ranks.length === 0) return 999;
+
+  const avg = ranks.reduce((a, b) => a + b, 0) / ranks.length;
+  return Math.round(avg * 10) / 10; // Round to 1 decimal
+}
+
+/**
+ * Create a slug from player name
+ * @param {string} name - Player name
+ * @returns {string} - URL-friendly slug
+ */
+function createSlug(name) {
+  return name
+    .toLowerCase()
+    .replace(/\./g, '')
+    .replace(/['']/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '');
+}
+
+/**
+ * Merge draft ranking sources with Barttorvik stats
+ * Uses only Tankathon and NBADraft.net for consensus rankings
+ * @param {object} params
+ * @param {string} params.tankathonMarkdown - Tankathon markdown content
+ * @param {string} params.nbaDraftNetMarkdown - NBADraft.net markdown content
+ * @param {Array} params.barttorvikData - Barttorvik player stats from API
  * @returns {{ players: Array, matchStats: object }}
  */
-export function mergeDraftData(tankathonMarkdown, barttorvikData) {
-  // Parse Tankathon markdown
-  const tankathonPlayers = parseTankathonMarkdown(tankathonMarkdown);
+export function mergeDraftData({
+  tankathonMarkdown,
+  nbaDraftNetMarkdown,
+  barttorvikData
+}) {
+  // Parse both sources
+  const tankathonPlayers = tankathonMarkdown ? parseTankathonMarkdown(tankathonMarkdown) : [];
+  const nbaDraftNetPlayers = nbaDraftNetMarkdown ? parseNBADraftNetMarkdown(nbaDraftNetMarkdown) : [];
 
-  console.log('Parsed Tankathon players:', tankathonPlayers.length);
-  console.log('First 3 players:', tankathonPlayers.slice(0, 3));
+  console.log('Parsed players - Tankathon:', tankathonPlayers.length,
+    ', NBADraft.net:', nbaDraftNetPlayers.length);
 
+  // Create a map of all unique players by normalized name
+  const playerMap = new Map();
+
+  // Add Tankathon players first (primary source)
+  for (const tp of tankathonPlayers) {
+    const normalizedName = normalizeName(tp.name);
+    playerMap.set(normalizedName, {
+      name: tp.name,
+      slug: tp.slug,
+      tankathonRank: tp.tankathonRank,
+      nbaDraftNetRank: null,
+      // Bio from Tankathon
+      position: tp.position,
+      school: tp.school,
+      height: tp.height,
+      heightInches: tp.heightInches,
+      weight: tp.weight,
+      year: tp.year,
+      age: tp.age,
+    });
+  }
+
+  // Create a loose name index for fallback matching (handles "Jr." vs no suffix cases)
+  const looseNameIndex = new Map();
+  for (const [strictName, player] of playerMap.entries()) {
+    const looseName = normalizeNameLoose(player.name);
+    if (!looseNameIndex.has(looseName)) {
+      looseNameIndex.set(looseName, strictName);
+    }
+  }
+
+  // Add NBADraft.net rankings (merge with existing or add new)
+  for (const ndp of nbaDraftNetPlayers) {
+    const normalizedName = normalizeName(ndp.name);
+    let existing = playerMap.get(normalizedName);
+
+    // Fallback: try loose matching if strict match fails
+    if (!existing) {
+      const looseName = normalizeNameLoose(ndp.name);
+      const strictKey = looseNameIndex.get(looseName);
+      if (strictKey) {
+        existing = playerMap.get(strictKey);
+      }
+    }
+
+    if (existing) {
+      // Update existing player with NBADraft.net rank
+      existing.nbaDraftNetRank = ndp.nbaDraftNetRank;
+    } else {
+      // New player only in NBADraft.net
+      playerMap.set(normalizedName, {
+        name: ndp.name,
+        slug: ndp.slug || createSlug(ndp.name),
+        tankathonRank: null,
+        nbaDraftNetRank: ndp.nbaDraftNetRank,
+        position: ndp.position,
+        school: ndp.school,
+        height: ndp.height,
+        heightInches: ndp.heightInches,
+        weight: ndp.weight,
+        year: ndp.year,
+        age: null,
+      });
+      // Add to loose index
+      const looseName = normalizeNameLoose(ndp.name);
+      if (!looseNameIndex.has(looseName)) {
+        looseNameIndex.set(looseName, normalizedName);
+      }
+    }
+  }
+
+  // Convert map to array and calculate consensus ranks
+  // Include all Tankathon players; use consensus when NBADraft.net also has the player
   let matched = 0;
   let unmatched = 0;
   let international = 0;
+  let internationalWithStats = 0;
+  let withBothSources = 0;
+  let tankathonOnly = 0;
 
-  const players = tankathonPlayers.map(tp => {
-    const isInternational = tp.year === 'International';
-    const barttorvikMatch = findBarttorvikMatch(tp, barttorvikData);
+  const allPlayers = Array.from(playerMap.values());
+  
+  // Filter to only players who are in Tankathon (our primary source for the 60-player board)
+  const tankathonBasedPlayers = allPlayers.filter(p => p.tankathonRank !== null);
+
+  // Count stats
+  tankathonBasedPlayers.forEach(p => {
+    if (p.nbaDraftNetRank !== null) {
+      withBothSources++;
+    } else {
+      tankathonOnly++;
+    }
+  });
+
+  console.log(`Players: ${tankathonBasedPlayers.length} from Tankathon (${withBothSources} with both sources, ${tankathonOnly} Tankathon only)`);
+
+  const players = tankathonBasedPlayers.map(p => {
+    // Use consensus if both sources available, otherwise fall back to Tankathon rank
+    const consensusRank = calculateConsensusRank(
+      p.tankathonRank,
+      p.nbaDraftNetRank
+    );
+
+    const isInternational = p.year === 'International';
+    const barttorvikMatch = findBarttorvikMatch(p, barttorvikData);
+    
+    // For international players, try to get stats from pre-scraped Tankathon data
+    const internationalStats = isInternational ? getInternationalStats(p.slug) : null;
 
     // Track stats
+    let stats = null;
+    let hasTankathonStats = false;
+    
     if (barttorvikMatch) {
       matched++;
+      stats = mapBarttorvikStats(barttorvikMatch);
+    } else if (isInternational && internationalStats) {
+      // International player with scraped stats
+      international++;
+      internationalWithStats++;
+      stats = mapInternationalStats(internationalStats);
+      hasTankathonStats = true;
     } else if (isInternational) {
+      // International player without stats
       international++;
     } else {
       unmatched++;
     }
 
-    // Map Barttorvik stats
-    const stats = barttorvikMatch ? mapBarttorvikStats(barttorvikMatch) : null;
-
     return {
       // Identity
-      id: generatePlayerId(tp),
-      playerId: generatePlayerId(tp),
-      name: tp.name,
+      id: generatePlayerId(p.slug),
+      playerId: generatePlayerId(p.slug),
+      name: p.name,
+      slug: p.slug,
 
-      // Draft info (from Tankathon)
-      tankathonRank: tp.tankathonRank,
-      position: tp.position,
-      currentTeam: tp.school,
+      // Photo URL
+      photoUrl: `/players/${getImageSlug(p.slug)}.jpg`,
+
+      // Rankings from each source
+      tankathonRank: p.tankathonRank,
+      nbaDraftNetRank: p.nbaDraftNetRank,
+
+      // Consensus ranking (average of available ranks)
+      consensusRank,
+
+      // Bio info
+      position: p.position || '',
+      currentTeam: p.school || '',
       leagueType: isInternational ? 'International' : 'NCAA',
-
-      // Bio (from Tankathon)
-      height: tp.heightInches,
-      heightDisplay: tp.height,
-      weight: tp.weight,
-      age: tp.age,
-      year: tp.year,
+      height: p.heightInches,
+      heightDisplay: p.height || '',
+      weight: p.weight,
+      age: p.age,
+      year: p.year || 'Unknown',
 
       // Match info
       hasBarttorvikData: !!barttorvikMatch,
+      hasTankathonStats,
+      hasStats: !!stats,
       isInternational,
 
-      // Stats (from Barttorvik)
+      // Stats (from Barttorvik for college players, Tankathon for international)
       stats,
-
-      // Keep raw references for debugging
-      _tankathon: tp,
-      _barttorvik: barttorvikMatch,
     };
   });
+
+  // Sort by consensus rank
+  players.sort((a, b) => a.consensusRank - b.consensusRank);
+
+  // Log some debug info
+  console.log('Total unique players:', players.length);
+  console.log('Sample player:', players[0]);
 
   return {
     players,
     matchStats: {
-      total: tankathonPlayers.length,
+      total: players.length,
       matched,
       unmatched,
       international,
+      internationalWithStats,
+      withBothSources,
+      tankathonOnly,
+      sourceCounts: {
+        tankathon: tankathonPlayers.length,
+        nbaDraftNet: nbaDraftNetPlayers.length,
+      }
     }
   };
 }

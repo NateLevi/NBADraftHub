@@ -6,7 +6,6 @@ import PhysicalSection from './Physical/PhysicalSection';
 import ScoutRankings from './ScoutRanks/ScoutRankings';
 import Stats from './Statistics/StatsTable';
 import { usePlayers } from '../../contexts/playersContextDef.js';
-import ScoutReports from './Reports/ScoutReports';
 import { useResponsive } from '../../hooks/useResponsive';
 
 const ProfileSectionAccordion = ({ 
@@ -92,7 +91,6 @@ const ProfileSectionAccordion = ({
           {section.id === 'physical' && <PhysicalSection player={selectedPlayer} />}
           {section.id === 'scout-ranks' && <ScoutRankings player={selectedPlayer} />}
           {section.id === 'statistics' && <Stats player={selectedPlayer} />}
-          {section.id === 'reports' && <ScoutReports player={selectedPlayer} />}
         </AccordionDetails>
       </Accordion>
     </Motion.div>

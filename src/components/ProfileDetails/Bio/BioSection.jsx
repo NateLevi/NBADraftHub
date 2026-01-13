@@ -1,13 +1,13 @@
 import BioDetails from './BioDetails';
-import { formatHeight, calculateAge } from '../../../utils/formatHelpers';
+import { formatHeight } from '../../../utils/formatHelpers';
 
 const BioSection = ({ player }) => (
   <BioDetails
-    age={calculateAge(player?.birthDate)}
-    height={`${formatHeight(player?.height)} ft`}
-    weight={`${player?.weight} lbs`}
-    team={` ${player?.currentTeam} (${player?.league}) `}
-    nationality={player?.nationality}
+    age={player?.age ? `${player.age.toFixed(1)} yrs` : 'N/A'}
+    height={player?.heightDisplay || formatHeight(player?.height) || 'N/A'}
+    weight={player?.weight ? `${player.weight} lbs` : 'N/A'}
+    team={player?.currentTeam ? `${player.currentTeam} (${player.leagueType || 'N/A'})` : 'N/A'}
+    nationality={player?.isInternational ? 'International' : 'USA'}
   />
 );
 

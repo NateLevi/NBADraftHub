@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { 
-  Box, 
-  ToggleButton, 
-  ToggleButtonGroup, 
+import {
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
   Table,
   TableBody,
   TableCell,
@@ -10,16 +10,53 @@ import {
   TableHead,
   TableRow,
   Paper,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem
+  Typography
 } from '@mui/material';
-import { STATS_COLUMNS, STATS_CATEGORIES } from '../../../data/statsConfig';
-import { processSeasonStats, processRecentGames } from '../../../utils/statsHelpers';
-import { formatSeasonDisplay, formatStatValue } from '../../../utils/formatHelpers';
-import TeamCell from './TeamCell';
 import { useResponsive } from '../../../hooks/useResponsive';
+
+// Stat categories for toggle buttons
+const STATS_CATEGORIES = [
+  { value: 'basic', label: 'Basic Stats' },
+  { value: 'shooting', label: 'Shooting' },
+  { value: 'advanced', label: 'Advanced' },
+];
+
+// Define which stats to show in each category
+const BASIC_STATS = [
+  { key: 'GP', label: 'Games Played', format: 'int' },
+  { key: 'MP', label: 'Minutes', format: 'decimal' },
+  { key: 'PTS', label: 'Points', format: 'decimal' },
+  { key: 'TRB', label: 'Rebounds', format: 'decimal' },
+  { key: 'AST', label: 'Assists', format: 'decimal' },
+  { key: 'STL', label: 'Steals', format: 'decimal' },
+  { key: 'BLK', label: 'Blocks', format: 'decimal' },
+];
+
+const SHOOTING_STATS = [
+  { key: 'FGM', label: 'FG Made', format: 'decimal' },
+  { key: 'FGA', label: 'FG Attempted', format: 'decimal' },
+  { key: 'FG%', label: 'FG%', format: 'pct' },
+  { key: '2PM', label: '2P Made', format: 'decimal' },
+  { key: '2PA', label: '2P Attempted', format: 'decimal' },
+  { key: '2P%', label: '2P%', format: 'pct' },
+  { key: '3PM', label: '3P Made', format: 'decimal' },
+  { key: '3PA', label: '3P Attempted', format: 'decimal' },
+  { key: '3P%', label: '3P%', format: 'pct' },
+  { key: 'FTM', label: 'FT Made', format: 'decimal' },
+  { key: 'FTA', label: 'FT Attempted', format: 'decimal' },
+  { key: 'FT%', label: 'FT%', format: 'pct' },
+];
+
+const ADVANCED_STATS = [
+  { key: 'eFG%', label: 'eFG%', format: 'pct' },
+  { key: 'TS%', label: 'True Shooting %', format: 'pct' },
+  { key: 'USG', label: 'Usage Rate', format: 'decimal' },
+  { key: 'ORtg', label: 'Off. Rating', format: 'int' },
+  { key: 'DRtg', label: 'Def. Rating', format: 'int' },
+  { key: 'BPM', label: 'Box Plus/Minus', format: 'decimal' },
+  { key: 'OBPM', label: 'Off. BPM', format: 'decimal' },
+  { key: 'DBPM', label: 'Def. BPM', format: 'decimal' },
+];
 
 // Styling constants
 const CELL_STYLES = {
@@ -35,20 +72,28 @@ const CELL_STYLES = {
     py: isMobile ? 0.75 : 1,
     px: isMobile ? 1 : 2,
     whiteSpace: 'nowrap'
-  }),
-  career: (isMobile) => ({
-    fontWeight: 'bold',
-    fontSize: isMobile ? '0.75rem' : '0.875rem',
-    py: isMobile ? 1 : 1,
-    px: isMobile ? 1 : 2,
-    whiteSpace: 'nowrap'
   })
+};
+
+// Format stat value based on type
+const formatStatValue = (value, format) => {
+  if (value === null || value === undefined) return 'N/A';
+
+  switch (format) {
+    case 'int':
+      return Math.round(value);
+    case 'decimal':
+      return value.toFixed(1);
+    case 'pct':
+      return `${value.toFixed(1)}%`;
+    default:
+      return value;
+  }
 };
 
 export default function StatsTable({ player }) {
   const { isMobile } = useResponsive();
-  const [statCategory, setStatCategory] = useState('offensive');
-  const [statType, setStatType] = useState('perGame');
+  const [statCategory, setStatCategory] = useState('basic');
 
   // Event handlers
   const handleCategoryChange = (event, newCategory) => {
@@ -57,165 +102,111 @@ export default function StatsTable({ player }) {
     }
   };
 
-  const handleStatTypeChange = (event) => {
-    setStatType(event.target.value);
+  // Get stats based on category
+  const getCurrentStats = () => {
+    switch (statCategory) {
+      case 'shooting':
+        return SHOOTING_STATS;
+      case 'advanced':
+        return ADVANCED_STATS;
+      default:
+        return BASIC_STATS;
+    }
   };
 
-  // Process data
-  const { combinedSeasonStats, careerAverages } = processSeasonStats(player?.seasonLogs);
-  const recentGames = processRecentGames(player?.game_logs);
-  
-  const isRecentGames = statCategory === 'recent';
-  const tableData = isRecentGames ? recentGames : combinedSeasonStats;
-  const currentColumns = STATS_COLUMNS[statCategory];
-
-  // Helper function to get cell value
-  const getCellValue = (column, season) => {
-    // Handle special columns first
-    if (column.key === 'season') return formatSeasonDisplay(season.season);
-    if (column.key === 'team') return season.team ? <TeamCell teamName={season.team} /> : null;
-    if (column.key === 'league') return season.league;
-    if (column.key === 'date') return season.date;
-    if (column.key === 'opponent') return season.opponent;
-    if (column.key === 'result') return season.result;
-
-    const statValue = season[column.key];
-
-    // For recent games, just format the value
-    if (isRecentGames) {
-      return formatStatValue(statValue);
-    }
-
-    // For season stats, handle totals vs per game
-    if (statType === 'total') {
-      // Percentages and games played always show as-is
-      if (statValue?.toString().includes('%') || column.key === 'GP' || column.key === 'GS') {
-        return formatStatValue(statValue);
-      }
-      
-      // Show totals if available
-      if (season.totals?.[column.key]) {
-        const total = season.totals[column.key];
-        return column.key === 'MP' ? total.toFixed(1) : Math.round(total).toString();
-      }
-    }
-
-    return formatStatValue(statValue);
-  };
+  const currentStats = getCurrentStats();
+  const playerStats = player?.stats;
 
   // No data available
-  if ((!tableData || tableData.length === 0) && !careerAverages) {
+  if (!playerStats) {
     return (
       <Box sx={{ p: 2, textAlign: 'center', color: 'text.secondary' }}>
-        {isRecentGames ? 'No recent games available for this player.' : 'No season statistics available for this player.'}
+        <Typography variant="body1" sx={{ mb: 1 }}>
+          No statistics available for this player.
+        </Typography>
+        {player?.isInternational && (
+          <Typography variant="body2" color="text.secondary">
+            Statistics for international players may not be available yet. 
+            Run the international stats update script to fetch the latest data.
+          </Typography>
+        )}
       </Box>
     );
   }
 
   return (
     <Box>
-      {/* Controls */}
-      <Box sx={{ 
-        mb: 2, 
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: isMobile ? 'stretch' : 'center',
-        flexDirection: isMobile ? 'column' : 'row',
-        gap: isMobile ? 2 : 0
-      }}>
-        {/* Category Toggle Buttons */}
-        <Box sx={{ 
-          flexGrow: 1, 
-          display: 'flex', 
-          justifyContent: 'center',
-          overflowX: isMobile ? 'auto' : 'visible',
-          '&::-webkit-scrollbar': { display: 'none' },
-          scrollbarWidth: 'none'
-        }}>
-          <ToggleButtonGroup
-            value={statCategory}
-            exclusive
-            onChange={handleCategoryChange}
-            size="small"
-            sx={{
-              '& .MuiToggleButton-root': {
-                fontSize: isMobile ? '0.75rem' : '0.875rem',
-                px: isMobile ? 1 : 2,
-                py: isMobile ? 0.5 : 1,
-                minWidth: isMobile ? 'auto' : '64px'
-              }
-            }}
-          >
-            {STATS_CATEGORIES.map(category => (
-              <ToggleButton key={category.value} value={category.value}>
-                {isMobile ? category.label.split(' ')[0] : category.label}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        </Box>
+      {/* Season Info */}
+      <Box sx={{ mb: 2 }}>
+        <Typography variant="subtitle2" color="text.secondary">
+          2025-26 Season • {playerStats.team || player.currentTeam} {playerStats.conf && `(${playerStats.conf})`}
+        </Typography>
+      </Box>
 
-        {/* Per Game / Total Dropdown */}
-        {!isRecentGames && (
-          <FormControl 
-            size="small" 
-            sx={{ 
-              minWidth: isMobile ? '100%' : 120,
-              maxWidth: isMobile ? '100%' : 120
-            }}
-          >
-            <InputLabel>Type</InputLabel>
-            <Select
-              value={statType}
-              label="Type"
-              onChange={handleStatTypeChange}
-            >
-              <MenuItem value="perGame">Per Game</MenuItem>
-              <MenuItem value="total">Total</MenuItem>
-            </Select>
-          </FormControl>
-        )}
+      {/* Category Toggle Buttons */}
+      <Box sx={{
+        mb: 2,
+        display: 'flex',
+        justifyContent: 'center',
+        overflowX: isMobile ? 'auto' : 'visible',
+        '&::-webkit-scrollbar': { display: 'none' },
+        scrollbarWidth: 'none'
+      }}>
+        <ToggleButtonGroup
+          value={statCategory}
+          exclusive
+          onChange={handleCategoryChange}
+          size="small"
+          sx={{
+            '& .MuiToggleButton-root': {
+              fontSize: isMobile ? '0.75rem' : '0.875rem',
+              px: isMobile ? 1 : 2,
+              py: isMobile ? 0.5 : 1,
+              minWidth: isMobile ? 'auto' : '64px'
+            }
+          }}
+        >
+          {STATS_CATEGORIES.map(category => (
+            <ToggleButton key={category.value} value={category.value}>
+              {isMobile ? category.label.split(' ')[0] : category.label}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
       </Box>
 
       {/* Stats Table */}
       <TableContainer component={Paper}>
         <Table size="medium">
-          {/* Table Header */}
           <TableHead>
             <TableRow>
-              {currentColumns.map((column) => (
-                <TableCell key={column.key} sx={CELL_STYLES.header(isMobile)}>
-                  {column.label}
-                </TableCell>
-              ))}
+              <TableCell sx={CELL_STYLES.header(isMobile)}>Stat</TableCell>
+              <TableCell sx={CELL_STYLES.header(isMobile)} align="right">Value</TableCell>
             </TableRow>
           </TableHead>
-
-          {/* Table Body */}
           <TableBody>
-            {/* Data Rows */}
-            {tableData.map((dataRow, index) => (
-              <TableRow key={index}>
-                {currentColumns.map((column) => (
-                  <TableCell key={column.key} sx={CELL_STYLES.body(isMobile)}>
-                    {getCellValue(column, dataRow)}
-                  </TableCell>
-                ))}
+            {currentStats.map((stat) => (
+              <TableRow key={stat.key}>
+                <TableCell sx={CELL_STYLES.body(isMobile)}>
+                  {stat.label}
+                </TableCell>
+                <TableCell sx={CELL_STYLES.body(isMobile)} align="right">
+                  {formatStatValue(playerStats[stat.key], stat.format)}
+                </TableCell>
               </TableRow>
             ))}
-
-            {/* Career Averages Row */}
-            {!isRecentGames && careerAverages && (
-              <TableRow sx={{ bgcolor: '#f5f5f5' }}>
-                {currentColumns.map((column) => (
-                  <TableCell key={column.key} sx={CELL_STYLES.career(isMobile)}>
-                    {getCellValue(column, careerAverages)}
-                  </TableCell>
-                ))}
-              </TableRow>
-            )}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Data Source Note */}
+      <Box sx={{ mt: 2, textAlign: 'center' }}>
+        <Typography variant="caption" color="text.secondary">
+          {player?.hasTankathonStats 
+            ? 'Statistics provided by Tankathon • Per-game averages'
+            : 'Statistics provided by Barttorvik • Per-game averages'
+          }
+        </Typography>
+      </Box>
     </Box>
   );
 }

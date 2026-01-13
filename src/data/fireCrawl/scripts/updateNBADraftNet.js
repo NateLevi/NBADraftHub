@@ -1,28 +1,32 @@
 /**
- * Firecrawl Script to Update Tankathon Mock Draft Data
+ * Firecrawl Script to Update NBADraft.net Mock Draft Data
  * 
- * This script scrapes the Tankathon mock draft page and saves it as markdown.
+ * This script scrapes the NBADraft.net mock draft page and saves it as markdown.
  * Run this script whenever you need to update the draft data.
  * 
  * Usage:
- *   node src/data/firecrawl/updateTankathon.js
+ *   node src/data/firecrawl/updateNBADraftNet.js
  */
 
 import FirecrawlApp from '@mendable/firecrawl-js';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configuration
-const TANKATHON_URL = 'https://www.tankathon.com/mock_draft';
-const OUTPUT_FILE = path.resolve(__dirname, '../tankathon.md');
+// Load environment variables from local.env
+dotenv.config({ path: path.resolve(__dirname, '../../../local.env') });
 
-async function updateTankathonData() {
-  console.log('🚀 Starting Tankathon data update...');
-  console.log(`📍 Scraping: ${TANKATHON_URL}`);
+// Configuration
+const NBADRAFT_NET_URL = 'https://www.nbadraft.net/nba-mock-drafts/';
+const OUTPUT_FILE = path.resolve(__dirname, '../DraftmdFiles/nbadraft-net.md');
+
+async function updateNBADraftNetData() {
+  console.log('🚀 Starting NBADraft.net data update...');
+  console.log(`📍 Scraping: ${NBADRAFT_NET_URL}`);
 
   try {
     // Check for API key
@@ -40,7 +44,7 @@ async function updateTankathonData() {
 
     // Scrape the page
     console.log('⏳ Scraping page...');
-    const result = await app.scrapeUrl(TANKATHON_URL, {
+    const result = await app.scrapeUrl(NBADRAFT_NET_URL, {
       formats: ['markdown'],
       onlyMainContent: true,
     });
@@ -53,19 +57,22 @@ async function updateTankathonData() {
     console.log(`💾 Saving to: ${OUTPUT_FILE}`);
     await fs.writeFile(OUTPUT_FILE, result.markdown, 'utf-8');
 
-    console.log('✅ Successfully updated Tankathon data!');
+    console.log('✅ Successfully updated NBADraft.net data!');
     console.log(`📄 File size: ${(result.markdown.length / 1024).toFixed(2)} KB`);
     
     return result.markdown;
   } catch (error) {
-    console.error('❌ Error updating Tankathon data:', error.message);
+    console.error('❌ Error updating NBADraft.net data:', error.message);
     throw error;
   }
 }
 
 // Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  updateTankathonData()
+// Check if this file is being run directly (not imported)
+const isMainModule = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+
+if (isMainModule) {
+  updateNBADraftNetData()
     .then(() => {
       console.log('\n🎉 Done!');
       process.exit(0);
@@ -76,4 +83,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     });
 }
 
-export { updateTankathonData };
+export { updateNBADraftNetData };

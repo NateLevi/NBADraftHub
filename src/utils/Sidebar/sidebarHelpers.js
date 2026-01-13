@@ -1,8 +1,6 @@
-import { calculateConsensusRank } from '../scoutHelpers';
-
-// Sort
+// Sort options
 export const SORT_OPTIONS = [
-  { value: 'rank', label: 'Consensus Rank' },
+  { value: 'rank', label: 'Draft Rank' },
   { value: 'name', label: 'Player Name' },
 ];
 
@@ -14,11 +12,12 @@ export const POSITION_OPTIONS = [
   { value: 'C', label: 'C' },
 ];
 
-// Process players with consensus ranks
+// Process players with ranks (use consensusRank from merged data)
 export const processPlayersWithRanks = (players, scouts) => {
   return players.map(player => ({
     ...player,
-    consensusRank: calculateConsensusRank(player.rankings, scouts) || 999
+    // Use consensusRank (average of all sources) or fall back to tankathonRank
+    consensusRank: player.consensusRank || player.tankathonRank || 999
   }));
 };
 
@@ -32,10 +31,11 @@ export const filterPlayersBySearch = (players, searchTerm) => {
 };
 
 // Filter players by position
+// Uses includes() to match composite positions like "SG/SF" with "G" or "F"
 export const filterPlayersByPosition = (players, positionFilter) => {
   if (positionFilter === 'all') return players;
-  
-  return players.filter(player => player.position === positionFilter);
+
+  return players.filter(player => player.position.includes(positionFilter));
 };
 
 // Sort players based on sort option

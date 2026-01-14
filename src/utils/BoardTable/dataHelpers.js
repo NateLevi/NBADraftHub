@@ -1,4 +1,5 @@
 import { formatHeight } from '../formatHelpers';
+import draftOrderMapping from '../../data/draftOrderMapping.json';
 
 /**
  * Helper to get stat value for display
@@ -17,12 +18,15 @@ const getStatValue = (stats, key) => {
 export const generateTableRows = (players) => {
   return players.map((player) => {
     const stats = player.stats || {};
+    const rank = player.tankathonRank;
+    const nbaTeamCode = rank ? draftOrderMapping[rank.toString()] : null;
 
     return {
       // Base info
       id: player.id || player.playerId,
       name: player.name,
-      rank: player.tankathonRank,
+      rank: rank,
+      nbaTeam: nbaTeamCode,
       age: player.age,
       height: player.heightDisplay || formatHeight(player.height),
       photoUrl: player.photoUrl || null,
@@ -59,7 +63,7 @@ export const generateTableRows = (players) => {
 export const getDataGridConfig = (isMobile, isTablet) => ({
   pageSize: isMobile ? 15 : 25,
   rowsPerPageOptions: isMobile ? [15, 30] : [25, 50, 100],
-  autoHeight: isMobile || isTablet,
+  autoHeight: false,
   disableColumnMenu: isMobile,
   disableColumnSelector: isMobile,
   disableDensitySelector: isMobile,

@@ -50,7 +50,6 @@ const KV_NAMESPACE_ID = process.env.KV_NAMESPACE_ID;
 const SLUG_TO_IMAGE_MAP = {
   'patrick-ngongba-ii': 'patrick-ngongba',
   'darius-acuff': 'darius-acuff-jr',
-  'sergio-de-larrea': 'sergio-de-larrea-asenjo',
   'jojo-tugler': 'joseph-tugler',
   'johann-grunloh': 'johann-gruenloh',
 };
@@ -59,8 +58,8 @@ const SLUG_TO_IMAGE_MAP = {
  * Player images with PNG extension (all others are JPG)
  */
 const PNG_PLAYER_IMAGES = new Set([
-  'dame-sarr',
   'karim-lopez',
+  'michael-ruzic',
 ]);
 
 /**

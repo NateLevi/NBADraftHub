@@ -3,6 +3,7 @@ import { Tooltip } from '@mui/material';
 import ReactCountryFlag from 'react-country-flag';
 import { getCountryCode } from '../formatHelpers';
 import { DEFAULT_PLAYER_IMAGE } from '../imageHelpers';
+import { getNBATeamName, getNBATeamLogoUrl } from '../nbaTeamHelpers';
 import {
   getPlayerCellStyles,
   getPlayerImageStyles,
@@ -12,10 +13,42 @@ import {
   getNationalityStyles,
   getFlagStyles,
   getNationalityTextStyles,
+  getNBATeamCellStyles,
+  getNBATeamLogoStyles,
 } from './tableStyles';
 
 // Default player photo fallback (from Cloudflare R2 helper)
 const DEFAULT_PHOTO = DEFAULT_PLAYER_IMAGE;
+
+// NBA Team logo cell renderer (shows which NBA team owns the draft pick)
+export const createNBATeamCell = (isMobile, isTablet) => (params) => {
+  const teamCode = params.value;
+
+  if (!teamCode) {
+    return (
+      <span style={{ color: '#718096', fontSize: '0.85rem' }}>
+        -
+      </span>
+    );
+  }
+
+  const teamName = getNBATeamName(teamCode);
+  const logoUrl = getNBATeamLogoUrl(teamCode);
+
+  return (
+    <div style={getNBATeamCellStyles()}>
+      <img
+        src={logoUrl}
+        alt={teamName}
+        title={teamName}
+        style={getNBATeamLogoStyles(isMobile, isTablet)}
+        onError={(e) => {
+          e.target.src = '/nbalogo.png'; // Fallback to generic NBA logo
+        }}
+      />
+    </div>
+  );
+};
 
 // Rank cell renderer (for draft rank)
 export const createRankCell = (isMobile, isTablet) => (params) => {
@@ -174,7 +207,6 @@ export const createNationalityCell = () => (params) => {
 export const generateStatColumns = (isMobile, isTablet, renderStatCell, renderPctCell) => {
   const stats = [
     { field: 'GP', headerName: 'GP', width: 50 },
-    { field: 'MP', headerName: 'MIN', width: 55 },
     { field: 'PTS', headerName: 'PTS', width: 55 },
     { field: 'TRB', headerName: 'REB', width: 55 },
     { field: 'AST', headerName: 'AST', width: 55 },
@@ -192,10 +224,21 @@ export const generateStatColumns = (isMobile, isTablet, renderStatCell, renderPc
   }));
 };
 
-// Base columns (Rank, Player, Age, Height, Position, Team)
+// Base columns (NBA Team, Rank, Player, Age, Height, Position, Team)
 // All columns shown on all screen sizes with adequate widths for full data
 export const generateBaseColumns = (isMobile, isTablet, isDesktop, renderRankCell, renderPlayerNameCell, renderTeamCell, renderNationalityCell) => {
   const columns = [];
+
+  // NBA Team column (first column - shows which NBA team owns the draft pick)
+  columns.push({
+    field: 'nbaTeam',
+    headerName: 'Team',
+    width: isMobile ? 60 : isTablet ? 70 : 80,
+    renderCell: createNBATeamCell(isMobile, isTablet),
+    headerAlign: 'center',
+    align: 'center',
+    sortable: true,
+  });
 
   // Rank column
   columns.push({
@@ -246,6 +289,20 @@ export const generateBaseColumns = (isMobile, isTablet, isDesktop, renderRankCel
     width: 70,
     headerAlign: 'center',
     align: 'center',
+  });
+
+  // Class column - displays year (Freshman, Sophomore, etc.)
+  columns.push({
+    field: 'year',
+    headerName: 'Class',
+    width: 90,
+    headerAlign: 'center',
+    align: 'center',
+    renderCell: (params) => (
+      <span style={{ fontSize: '0.85rem', color: '#2D3748' }}>
+        {params.value || '-'}
+      </span>
+    ),
   });
 
   // Team column - wide enough for "North Carolina", "Virginia Tech", etc.

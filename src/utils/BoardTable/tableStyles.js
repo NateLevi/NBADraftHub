@@ -122,4 +122,39 @@ export const getDataGridStyles = (isMobile) => ({
   border: `1px solid ${TABLE_COLORS.border}`,
   borderRadius: isMobile ? '8px' : '12px',
   fontFamily: FONT_FAMILY,
+  '& .round-2-start': {
+    borderTop: '3px solid #00285E',
+    position: 'relative',
+    '&::before': {
+      content: '"Round 2"',
+      position: 'absolute',
+      top: '-12px',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      backgroundColor: '#00285E',
+      color: 'white',
+      padding: '2px 12px',
+      fontSize: '0.7rem',
+      fontWeight: '600',
+      borderRadius: '4px',
+      zIndex: 1,
+    },
+  },
+});
+
+// NBA Team logo cell styles
+export const getNBATeamCellStyles = () => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+  width: '100%',
+});
+
+export const getNBATeamLogoStyles = (isMobile, isTablet) => ({
+  width: isMobile ? '28px' : isTablet ? '36px' : '44px',
+  height: isMobile ? '28px' : isTablet ? '36px' : '44px',
+  objectFit: 'contain',
+  display: 'block',
+  filter: 'drop-shadow(0 0 1px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.3))',
 }); 

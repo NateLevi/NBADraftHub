@@ -22,7 +22,6 @@ const internationalStatsData = internationalStatsJson || null;
 const SLUG_TO_IMAGE_MAP = {
   'patrick-ngongba-ii': 'patrick-ngongba',
   'darius-acuff': 'darius-acuff-jr',
-  'sergio-de-larrea': 'sergio-de-larrea-asenjo',
   'jojo-tugler': 'joseph-tugler',
   'johann-grunloh': 'johann-gruenloh',
 };

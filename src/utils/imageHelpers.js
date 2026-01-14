@@ -26,6 +26,7 @@ const PNG_TEAM_LOGOS = new Set([
 const PNG_PLAYER_IMAGES = new Set([
   'dame-sarr',
   'karim-lopez',
+  'michael-ruzic',
 ]);
 
 /**

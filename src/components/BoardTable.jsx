@@ -99,7 +99,12 @@ export default function BoardTable() {
   };
 
   return (
-    <div style={{ height: '100%', width: '100%' }}>
+    <div style={{
+      width: '100%',
+      maxWidth: isDesktop ? '1400px' : '100%',
+      margin: isDesktop ? '0 auto' : '0',
+      height: 'calc(100vh - 150px)',
+    }}>
       {/* Match stats info (optional - shown on desktop) */}
       {isDesktop && matchStats && (
         <Box sx={{ mb: 1, display: 'flex', gap: 2, fontSize: '0.75rem', color: '#718096' }}>
@@ -116,6 +121,7 @@ export default function BoardTable() {
         columns={columns}
         onRowClick={handleRowClick}
         sx={getDataGridStyles(isMobile)}
+        getRowClassName={(params) => params.row.rank === 31 ? 'round-2-start' : ''}
         {...dataGridConfig}
       />
     </div>

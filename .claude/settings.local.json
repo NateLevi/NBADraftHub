@@ -4,7 +4,9 @@
       "Bash(cat:*)",
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(ls:*)",
+      "Bash(node scripts/downloadNBATeamLogos.js:*)"
     ]
   }
 }

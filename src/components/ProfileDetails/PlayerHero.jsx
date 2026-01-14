@@ -4,12 +4,18 @@ import { Box, Typography } from '@mui/material';
 import { teamData, defaultTeamBranding } from '../../data/teams/teamData';
 import { formatHeight } from '../../utils/formatHelpers';
 import { getTeamLogoUrl, DEFAULT_PLAYER_IMAGE } from '../../utils/imageHelpers';
+import { getNBATeamName, getNBATeamLogoUrl } from '../../utils/nbaTeamHelpers';
+import draftOrderMapping from '../../data/draftOrderMapping.json';
 
 const PlayerHero = ({ player }) => {
   const [teamBranding, setTeamBranding] = useState(defaultTeamBranding);
 
   // Calculate player data - adapted for new data structure
   const playerRank = player?.tankathonRank;
+  // Get NBA team that owns this pick
+  const nbaTeamCode = playerRank ? draftOrderMapping[playerRank.toString()] : null;
+  const nbaTeamName = nbaTeamCode ? getNBATeamName(nbaTeamCode) : null;
+  const nbaTeamLogoUrl = nbaTeamCode ? getNBATeamLogoUrl(nbaTeamCode) : null;
   // Use pre-calculated age or heightDisplay from new data structure
   const age = player?.age ? player.age.toFixed(1) : null;
   const height = player?.heightDisplay || formatHeight(player?.height);
@@ -106,20 +112,35 @@ const PlayerHero = ({ player }) => {
           initial="hidden"
           animate="visible"
         >
-          {/* Player rank */}
+          {/* Player rank with NBA team logo */}
           {playerRank && (
-            <Typography
-              variant="h4"
-              sx={{
-                fontFamily: '"Oswald", sans-serif',
-                fontWeight: 'bold',
-                color: teamBranding.textColor,
-                textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
-                mb: 1
-              }}
-            >
-              #{playerRank}
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1, justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              {nbaTeamLogoUrl && (
+                <img
+                  src={nbaTeamLogoUrl}
+                  alt={nbaTeamName || 'NBA Team'}
+                  title={nbaTeamName || 'NBA Team'}
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 0 2px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 4px rgba(0, 0, 0, 0.4))',
+                  }}
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
+              )}
+              <Typography
+                variant="h4"
+                sx={{
+                  fontFamily: '"Oswald", sans-serif',
+                  fontWeight: 'bold',
+                  color: teamBranding.textColor,
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.7)',
+                }}
+              >
+                #{playerRank}
+              </Typography>
+            </Box>
           )}
 
           {/* Player name */}

@@ -109,7 +109,7 @@ export default function BoardTable() {
       {isDesktop && matchStats && (
         <Box sx={{ mb: 1, display: 'flex', gap: 2, fontSize: '0.75rem', color: '#718096' }}>
           <span>Total: {matchStats.total}</span>
-          <span>With stats: {matchStats.matched}</span>
+          <span>NCAA players count: {matchStats.total - matchStats.international}</span>
           {matchStats.international > 0 && (
             <span>International: {matchStats.international}</span>
           )}

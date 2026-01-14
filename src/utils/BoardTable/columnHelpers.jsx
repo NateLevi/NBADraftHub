@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
 import ReactCountryFlag from 'react-country-flag';
 import { getCountryCode } from '../formatHelpers';
+import { DEFAULT_PLAYER_IMAGE } from '../imageHelpers';
 import {
   getPlayerCellStyles,
   getPlayerImageStyles,
@@ -13,8 +14,8 @@ import {
   getNationalityTextStyles,
 } from './tableStyles';
 
-// Default player photo fallback
-const DEFAULT_PHOTO = 'https://cdn.nba.com/headshots/nba/latest/1040x760/1641780.png';
+// Default player photo fallback (from Cloudflare R2 helper)
+const DEFAULT_PHOTO = DEFAULT_PLAYER_IMAGE;
 
 // Rank cell renderer (for draft rank)
 export const createRankCell = (isMobile, isTablet) => (params) => {

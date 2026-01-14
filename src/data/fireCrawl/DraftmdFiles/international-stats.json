@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generatedAt": "2026-01-13T02:46:34.662Z",
+    "generatedAt": "2026-01-14T00:42:12.221Z",
     "totalPlayers": 4,
     "successfulScrapes": 4,
     "failedScrapes": 0
@@ -9,7 +9,7 @@
     "karim-lopez": {
       "name": "Karim López",
       "slug": "karim-lopez",
-      "tankathonRank": 14,
+      "tankathonRank": 13,
       "stats": {
         "GP": 9,
         "MP": 21.9,
@@ -40,7 +40,7 @@
         "source": "tankathon",
         "team": "New Zealand"
       },
-      "scrapedAt": "2026-01-13T02:46:23.982Z"
+      "scrapedAt": "2026-01-14T00:42:06.220Z"
     },
     "dash-daniels": {
       "name": "Dash Daniels",
@@ -76,7 +76,7 @@
         "source": "tankathon",
         "team": "Melbourne"
       },
-      "scrapedAt": "2026-01-13T02:46:26.906Z"
+      "scrapedAt": "2026-01-14T00:42:08.251Z"
     },
     "sergio-de-larrea": {
       "name": "Sergio de Larrea",
@@ -112,7 +112,7 @@
         "source": "tankathon",
         "team": "Valencia"
       },
-      "scrapedAt": "2026-01-13T02:46:29.918Z"
+      "scrapedAt": "2026-01-14T00:42:10.236Z"
     },
     "michael-ruzic": {
       "name": "Michael Ruzic",
@@ -148,7 +148,7 @@
         "source": "tankathon",
         "team": "Joventut"
       },
-      "scrapedAt": "2026-01-13T02:46:34.662Z"
+      "scrapedAt": "2026-01-14T00:42:12.221Z"
     }
   }
 }

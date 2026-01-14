@@ -8,9 +8,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Configuration
-const TANKATHON_FILE = path.join(__dirname, '../fireCrawl/tankathon.md');
+const TANKATHON_FILE = path.join(__dirname, '../DraftmdFiles/tankathon.md');
 const SPORTS_REF_BASE = 'https://www.sports-reference.com/req/202512231/cbb/images/players';
-const OUTPUT_DIR = path.join(__dirname, '../../../public/players');
+const OUTPUT_DIR = path.join(__dirname, '../../../../public/players');
 
 // Check if running in test mode (only download first player)
 const TEST_MODE = process.argv.includes('--test');

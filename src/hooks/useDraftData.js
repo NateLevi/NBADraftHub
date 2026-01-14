@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
+import { fetchDraftDataFromKV } from '../utils/workersKV';
+
+// Fallback imports for development mode
 import { getPlayerData } from '../data/players/api';
 import { mergeDraftData } from '../utils/mergeDraftData';
-
-// Import markdown files as raw strings using Vite's ?raw suffix
 import tankathonMarkdown from '../data/fireCrawl/DraftmdFiles/tankathon.md?raw';
 import nbaDraftNetMarkdown from '../data/fireCrawl/DraftmdFiles/nbadraft-net.md?raw';
 
+// Always use Workers KV for fast loading (data is pre-merged)
+// Set VITE_USE_WORKERS_KV=false to use live APIs for testing
+const USE_WORKERS_KV = import.meta.env.VITE_USE_WORKERS_KV !== 'false';
+
 /**
  * Custom hook to fetch and merge draft data from multiple sources
- * Sources: Tankathon, NBADraft.net (for rankings)
- *          Barttorvik (for stats)
+ *
+ * Production: Fetches pre-merged data from Workers KV (fast)
+ * Development: Fetches from live APIs and merges client-side
+ *
  * @returns {{ players: Array, loading: boolean, error: string|null, matchStats: object, refetch: function }}
  */
 export function useDraftData() {
@@ -32,21 +39,40 @@ export function useDraftData() {
       setLoading(true);
       setError(null);
 
-      // Fetch Barttorvik data from API
-      const barttorvikData = await getPlayerData();
+      let mergedPlayers;
+      let stats;
 
-      // Console log one player response from the API
-      console.log('API Response - First Player:', barttorvikData[0]);
+      if (USE_WORKERS_KV) {
+        // Production: Fetch pre-merged data from Workers KV
+        console.log('Fetching from Workers KV (production mode)...');
 
-      // Merge both sources with Barttorvik stats
-      const { players: mergedPlayers, matchStats: stats } = mergeDraftData({
-        tankathonMarkdown,
-        nbaDraftNetMarkdown,
-        barttorvikData,
-      });
+        const kvData = await fetchDraftDataFromKV();
+        mergedPlayers = kvData.players;
+        stats = kvData.matchStats;
+
+        console.log(`Loaded ${mergedPlayers.length} players from Workers KV`);
+        console.log(`Data last updated: ${kvData.updatedAt}`);
+      } else {
+        // Development: Fetch from live APIs and merge
+        console.log('Fetching from live APIs (development mode)...');
+
+        // Fetch Barttorvik data from API
+        const barttorvikData = await getPlayerData();
+        console.log('API Response - First Player:', barttorvikData[0]);
+
+        // Merge all sources
+        const mergeResult = mergeDraftData({
+          tankathonMarkdown,
+          nbaDraftNetMarkdown,
+          barttorvikData,
+        });
+
+        mergedPlayers = mergeResult.players;
+        stats = mergeResult.matchStats;
+      }
 
       // Log match results for debugging
-      console.log('Draft Data Merge Results:', {
+      console.log('Draft Data Results:', {
         totalPlayers: stats.total,
         matchedWithBarttorvik: stats.matched,
         unmatchedCollege: stats.unmatched,
@@ -66,7 +92,7 @@ export function useDraftData() {
         })));
       }
 
-      // Log some sample players with their ranks from both sources
+      // Log sample players
       console.log('Sample players with source ranks:', mergedPlayers.slice(0, 5).map(p => ({
         name: p.name,
         consensus: p.consensusRank,

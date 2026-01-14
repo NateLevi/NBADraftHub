@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import PlayerHero from '../components/ProfileDetails/PlayerHero'
 import PlayerProfileTabs from '../components/ProfileDetails/PlayerProfileTabs'
 import NavBar from '../components/Nav/NavBar'
@@ -14,19 +14,19 @@ const PlayerProfilePage = () => {
 
   // State to store the current player
   const [currentPlayer, setCurrentPlayer] = useState(null);
-  
+
   // State for sidebar visibility
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Get the players data from the context
-  const { players } = usePlayers();
-  
+  const { players, loading } = usePlayers();
+
   // Responsive breakpoints
   const { isMobile, isTablet } = useResponsive();
 
   // Fetch the player data based on the playerId
   useEffect(() => {
-    // New data uses string IDs like "tank_darryn-peterson"
+    // New data uses string IDs like "player_darryn-peterson"
     const foundPlayer = players.find(p => p.id === playerId);
     setCurrentPlayer(foundPlayer);
   }, [playerId, players]);
@@ -41,11 +41,26 @@ const PlayerProfilePage = () => {
     setSidebarOpen(false);
   };
 
+  // Show loading while data is being fetched
+  if (loading) {
+    return (
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F7FAFC',
+        minHeight: '100vh'
+      }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   if (!currentPlayer) {
     return (
-      <Box sx={{ 
-        p: isMobile ? 4 : 8, 
-        textAlign: 'center', 
+      <Box sx={{
+        p: isMobile ? 4 : 8,
+        textAlign: 'center',
         color: 'error.main',
         backgroundColor: '#F7FAFC',
         minHeight: '100vh'

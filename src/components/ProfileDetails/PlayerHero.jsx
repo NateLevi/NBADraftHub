@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Box, Typography } from '@mui/material';
 import { teamData, defaultTeamBranding } from '../../data/teams/teamData';
 import { formatHeight } from '../../utils/formatHelpers';
+import { getTeamLogoUrl, DEFAULT_PLAYER_IMAGE } from '../../utils/imageHelpers';
 
 const PlayerHero = ({ player }) => {
   const [teamBranding, setTeamBranding] = useState(defaultTeamBranding);
@@ -29,21 +30,23 @@ const PlayerHero = ({ player }) => {
   // Set team branding based on player's current team
   useEffect(() => {
     if (!player?.currentTeam) {
-      setTeamBranding({ ...defaultTeamBranding, name: 'N/A' });
+      setTeamBranding({ ...defaultTeamBranding, name: 'N/A', logoUrl: null });
       return;
     }
 
     const teamInfo = teamData[player.currentTeam];
+    const logoUrl = getTeamLogoUrl(player.currentTeam);
+    
     if (teamInfo) {
       setTeamBranding({
         name: player.currentTeam,
-        logoUrl: teamInfo.logoUrl || defaultTeamBranding.logoUrl,
+        logoUrl,
         primaryColor: teamInfo.primaryColor || defaultTeamBranding.primaryColor,
         secondaryColor: teamInfo.secondaryColor || defaultTeamBranding.secondaryColor,
         textColor: teamInfo.textColor || defaultTeamBranding.textColor,
       });
     } else {
-      setTeamBranding({ ...defaultTeamBranding, name: player.currentTeam });
+      setTeamBranding({ ...defaultTeamBranding, name: player.currentTeam, logoUrl });
     }
   }, [player]);
 
@@ -87,7 +90,7 @@ const PlayerHero = ({ player }) => {
           animate="visible"
         >
           <img
-            src={player.photoUrl || 'https://cdn.nba.com/headshots/nba/latest/1040x760/1641780.png'}
+            src={player.photoUrl || DEFAULT_PLAYER_IMAGE}
             alt={`${playerName} headshot`}
             className="h-64 md:h-80 object-contain rounded-2xl"
             onError={(e) => { 

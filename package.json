@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "download-images": "node src/data/scripts/downloadPlayerImages.js",
-    "download-images:test": "node src/data/scripts/downloadPlayerImages.js --test"
+    "download-images": "node src/data/fireCrawl/scripts/downloadPlayerImages.js",
+    "update:weekly": "node src/data/fireCrawl/scripts/weeklyUpdate.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

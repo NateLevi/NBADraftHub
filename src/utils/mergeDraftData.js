@@ -8,6 +8,7 @@
 import { parseTankathonMarkdown } from './parseTankathon';
 import { parseNBADraftNetMarkdown } from './parseNBADraftNet';
 import { findBarttorvikMatch, findPlayerByName, normalizeName, normalizeNameLoose } from './nameMatching';
+import { getPlayerImageUrl } from './imageHelpers';
 
 // Import pre-scraped international player stats
 // Using Vite's JSON import - will be empty object if file is missing
@@ -16,7 +17,7 @@ const internationalStatsData = internationalStatsJson || null;
 
 /**
  * Map Tankathon slugs to image filenames where they differ
- * Image files are in public/players/{slug}.jpg
+ * Image files are stored locally at /public/players/{slug}.jpg
  */
 const SLUG_TO_IMAGE_MAP = {
   'patrick-ngongba-ii': 'patrick-ngongba',
@@ -33,6 +34,15 @@ const SLUG_TO_IMAGE_MAP = {
  */
 function getImageSlug(slug) {
   return SLUG_TO_IMAGE_MAP[slug] || slug;
+}
+
+/**
+ * Get local path for player image
+ * @param {string} slug - Player slug
+ * @returns {string} - Local path for player image
+ */
+function getPlayerPhotoUrl(slug) {
+  return getPlayerImageUrl(getImageSlug(slug));
 }
 
 /**
@@ -360,8 +370,8 @@ export function mergeDraftData({
       name: p.name,
       slug: p.slug,
 
-      // Photo URL
-      photoUrl: `/players/${getImageSlug(p.slug)}.jpg`,
+      // Photo URL (local path)
+      photoUrl: getPlayerPhotoUrl(p.slug),
 
       // Rankings from each source
       tankathonRank: p.tankathonRank,

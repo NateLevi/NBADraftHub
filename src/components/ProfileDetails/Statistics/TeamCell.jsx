@@ -1,7 +1,7 @@
 // Team Logo for the stats table
 import { Box, Typography } from '@mui/material';
-import { teamData } from '../../../data/teams/teamData';
 import { useResponsive } from '../../../hooks/useResponsive';
+import { getTeamLogoUrl } from '../../../utils/imageHelpers';
 
 const TeamCell = ({ teamName }) => {
   const { isMobile, isTablet } = useResponsive();
@@ -10,7 +10,7 @@ const TeamCell = ({ teamName }) => {
     return 'N/A';
   }
 
-  const logoUrl = teamData[teamName]?.logoUrl;
+  const logoUrl = getTeamLogoUrl(teamName);
   
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: isMobile ? 0.5 : 1 }}>

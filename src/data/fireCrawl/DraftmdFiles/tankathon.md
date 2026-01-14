@@ -12,7 +12,7 @@ More
 
 # 2026 NBA Mock Draft
 
-Player Rankings updated 6 days ago \| Draft Order updated after every game
+Player Rankings updated 8 days ago \| Draft Order updated after every game
 
 Draft Order updated after every game
 
@@ -31,6 +31,82 @@ AdvancedPer 36 MinPer Game
 Round 1
 
 1
+
+[![ATL](http://d2uki2uvp6v3wr.cloudfront.net/nba/atl.svg)](https://www.tankathon.com/hawks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/no.svg)](https://www.tankathon.com/pelicans)
+
+[Cameron Boozer\\
+\\
+PF \| Duke](https://www.tankathon.com/players/cameron-boozer)
+
+6'9"
+
+250 lbs
+
+Freshman
+
+18.9 yrs
+
+22.9
+
+pts
+
+9.5
+
+reb
+
+4.2
+
+ast
+
+0.7
+
+blk
+
+1.8
+
+stl
+
+25.6
+
+pts
+
+10.6
+
+reb
+
+4.7
+
+ast
+
+0.8
+
+blk
+
+2.0
+
+stl
+
+.672
+
+TS%
+
+29.2
+
+USG
+
+12.5
+
+OBPM
+
+5.7
+
+DBPM
+
+18.2
+
+BPM
+
+2
 
 [![IND](http://d2uki2uvp6v3wr.cloudfront.net/nba/ind.svg)](https://www.tankathon.com/pacers)
 
@@ -106,7 +182,7 @@ DBPM
 
 BPM
 
-2
+3
 
 [![SAC](http://d2uki2uvp6v3wr.cloudfront.net/nba/sac.svg)](https://www.tankathon.com/kings)
 
@@ -174,87 +250,11 @@ USG
 
 OBPM
 
-4.3
+4.2
 
 DBPM
 
 13.5
-
-BPM
-
-3
-
-[![ATL](http://d2uki2uvp6v3wr.cloudfront.net/nba/atl.svg)](https://www.tankathon.com/hawks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/no.svg)](https://www.tankathon.com/pelicans)
-
-[Cameron Boozer\\
-\\
-PF \| Duke](https://www.tankathon.com/players/cameron-boozer)
-
-6'9"
-
-250 lbs
-
-Freshman
-
-18.9 yrs
-
-22.9
-
-pts
-
-9.5
-
-reb
-
-4.2
-
-ast
-
-0.7
-
-blk
-
-1.8
-
-stl
-
-25.6
-
-pts
-
-10.6
-
-reb
-
-4.7
-
-ast
-
-0.8
-
-blk
-
-2.0
-
-stl
-
-.672
-
-TS%
-
-29.2
-
-USG
-
-12.5
-
-OBPM
-
-5.7
-
-DBPM
-
-18.2
 
 BPM
 
@@ -398,7 +398,7 @@ TS%
 
 USG
 
-7.0
+6.9
 
 OBPM
 
@@ -406,13 +406,13 @@ OBPM
 
 DBPM
 
-13.9
+13.8
 
 BPM
 
 6
 
-[![UTA](http://d2uki2uvp6v3wr.cloudfront.net/nba/uta.svg)](https://www.tankathon.com/jazz)
+[![CHA](http://d2uki2uvp6v3wr.cloudfront.net/nba/cha.svg)](https://www.tankathon.com/hornets)
 
 [Nate Ament\\
 \\
@@ -488,7 +488,7 @@ BPM
 
 7
 
-[![DAL](http://d2uki2uvp6v3wr.cloudfront.net/nba/dal.svg)](https://www.tankathon.com/mavericks)
+[![UTA](http://d2uki2uvp6v3wr.cloudfront.net/nba/uta.svg)](https://www.tankathon.com/jazz)
 
 [Mikel Brown Jr.\\
 \\
@@ -550,7 +550,7 @@ TS%
 
 USG
 
-4.4
+4.3
 
 OBPM
 
@@ -564,7 +564,7 @@ BPM
 
 8
 
-[![CHA](http://d2uki2uvp6v3wr.cloudfront.net/nba/cha.svg)](https://www.tankathon.com/hornets)
+[![DAL](http://d2uki2uvp6v3wr.cloudfront.net/nba/dal.svg)](https://www.tankathon.com/mavericks)
 
 [Koa Peat\\
 \\
@@ -626,7 +626,7 @@ TS%
 
 USG
 
-4.8
+4.7
 
 OBPM
 
@@ -716,82 +716,6 @@ BPM
 
 10
 
-[![MEM](http://d2uki2uvp6v3wr.cloudfront.net/nba/mem.svg)](https://www.tankathon.com/grizzlies)
-
-[Braylon Mullins\\
-\\
-SG \| UConn](https://www.tankathon.com/players/braylon-mullins)
-
-6'6"
-
-196 lbs
-
-Freshman
-
-20.2 yrs
-
-11.7
-
-pts
-
-3.7
-
-reb
-
-1.5
-
-ast
-
-0.4
-
-blk
-
-1.1
-
-stl
-
-17.1
-
-pts
-
-5.4
-
-reb
-
-2.3
-
-ast
-
-0.5
-
-blk
-
-1.6
-
-stl
-
-.610
-
-TS%
-
-22.6
-
-USG
-
-3.9
-
-OBPM
-
-4.4
-
-DBPM
-
-8.3
-
-BPM
-
-11
-
 [![MIL](http://d2uki2uvp6v3wr.cloudfront.net/nba/mil.svg)](https://www.tankathon.com/bucks)
 
 [Labaron Philon\\
@@ -866,6 +790,82 @@ DBPM
 
 BPM
 
+11
+
+[![MEM](http://d2uki2uvp6v3wr.cloudfront.net/nba/mem.svg)](https://www.tankathon.com/grizzlies)
+
+[Braylon Mullins\\
+\\
+SG \| UConn](https://www.tankathon.com/players/braylon-mullins)
+
+6'6"
+
+196 lbs
+
+Freshman
+
+20.2 yrs
+
+11.7
+
+pts
+
+3.7
+
+reb
+
+1.5
+
+ast
+
+0.4
+
+blk
+
+1.1
+
+stl
+
+17.1
+
+pts
+
+5.4
+
+reb
+
+2.3
+
+ast
+
+0.5
+
+blk
+
+1.6
+
+stl
+
+.610
+
+TS%
+
+22.6
+
+USG
+
+3.9
+
+OBPM
+
+4.4
+
+DBPM
+
+8.3
+
+BPM
+
 12
 
 [![CHI](http://d2uki2uvp6v3wr.cloudfront.net/nba/chi.svg)](https://www.tankathon.com/bulls)
@@ -882,15 +882,15 @@ Freshman
 
 20.1 yrs
 
-18.2
+18.4
 
 pts
 
-11.2
+11.0
 
 reb
 
-1.8
+1.7
 
 ast
 
@@ -898,19 +898,19 @@ ast
 
 blk
 
-1.0
+1.1
 
 stl
 
-20.3
+20.4
 
 pts
 
-12.5
+12.2
 
 reb
 
-2.0
+1.9
 
 ast
 
@@ -918,31 +918,95 @@ ast
 
 blk
 
-1.1
+1.2
 
 stl
 
-.660
+.644
 
 TS%
 
-23.3
+24.2
 
 USG
 
-8.2
+7.5
 
 OBPM
 
-2.5
+2.3
 
 DBPM
 
-10.7
+9.9
 
 BPM
 
 13
+
+[![POR](http://d2uki2uvp6v3wr.cloudfront.net/nba/por.svg)](https://www.tankathon.com/trail-blazers)
+
+[Karim López\\
+\\
+SF \| New Zealand](https://www.tankathon.com/players/karim-lopez)
+
+6'8"
+
+220 lbs
+
+International
+
+19.2 yrs
+
+10.0
+
+pts
+
+5.8
+
+reb
+
+1.3
+
+ast
+
+0.9
+
+blk
+
+0.9
+
+stl
+
+16.4
+
+pts
+
+9.5
+
+reb
+
+2.2
+
+ast
+
+1.5
+
+blk
+
+1.5
+
+stl
+
+.591
+
+TS%
+
+18.7
+
+USG
+
+14
 
 [![SA](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/atl.svg)](https://www.tankathon.com/hawks)
 
@@ -1017,70 +1081,6 @@ DBPM
 1.9
 
 BPM
-
-14
-
-[![POR](http://d2uki2uvp6v3wr.cloudfront.net/nba/por.svg)](https://www.tankathon.com/trail-blazers)
-
-[Karim López\\
-\\
-SF \| New Zealand](https://www.tankathon.com/players/karim-lopez)
-
-6'8"
-
-220 lbs
-
-International
-
-19.2 yrs
-
-10.0
-
-pts
-
-5.8
-
-reb
-
-1.3
-
-ast
-
-0.9
-
-blk
-
-0.9
-
-stl
-
-16.4
-
-pts
-
-9.5
-
-reb
-
-2.2
-
-ast
-
-1.5
-
-blk
-
-1.5
-
-stl
-
-.591
-
-TS%
-
-18.7
-
-USG
 
 15
 
@@ -1236,6 +1236,82 @@ BPM
 
 17
 
+[![ATL](http://d2uki2uvp6v3wr.cloudfront.net/nba/atl.svg)](https://www.tankathon.com/hawks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/cle.svg)](https://www.tankathon.com/cavaliers)
+
+[Bennett Stirtz\\
+\\
+PG \| Iowa](https://www.tankathon.com/players/bennett-stirtz)
+
+6'4"
+
+190 lbs
+
+Senior
+
+22.7 yrs
+
+17.6
+
+pts
+
+2.4
+
+reb
+
+5.1
+
+ast
+
+0.1
+
+blk
+
+1.6
+
+stl
+
+18.0
+
+pts
+
+2.4
+
+reb
+
+5.2
+
+ast
+
+0.1
+
+blk
+
+1.6
+
+stl
+
+.621
+
+TS%
+
+24.3
+
+USG
+
+6.9
+
+OBPM
+
+3.0
+
+DBPM
+
+9.9
+
+BPM
+
+18
+
 [![MEM](http://d2uki2uvp6v3wr.cloudfront.net/nba/mem.svg)](https://www.tankathon.com/grizzlies)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/orl.svg)](https://www.tankathon.com/magic)
 
 [Chris Cenac Jr.\\
@@ -1310,82 +1386,6 @@ DBPM
 
 BPM
 
-18
-
-[![ATL](http://d2uki2uvp6v3wr.cloudfront.net/nba/atl.svg)](https://www.tankathon.com/hawks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/cle.svg)](https://www.tankathon.com/cavaliers)
-
-[Bennett Stirtz\\
-\\
-PG \| Iowa](https://www.tankathon.com/players/bennett-stirtz)
-
-6'4"
-
-190 lbs
-
-Senior
-
-22.7 yrs
-
-18.0
-
-pts
-
-2.5
-
-reb
-
-5.0
-
-ast
-
-0.1
-
-blk
-
-1.7
-
-stl
-
-18.3
-
-pts
-
-2.5
-
-reb
-
-5.1
-
-ast
-
-0.1
-
-blk
-
-1.7
-
-stl
-
-.642
-
-TS%
-
-24.1
-
-USG
-
-7.5
-
-OBPM
-
-3.2
-
-DBPM
-
-10.7
-
-BPM
-
 19
 
 [![OKC](http://d2uki2uvp6v3wr.cloudfront.net/nba/okc.svg)](https://www.tankathon.com/thunder)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/phi.svg)](https://www.tankathon.com/76ers)
@@ -1454,7 +1454,7 @@ USG
 
 OBPM
 
-1.9
+1.8
 
 DBPM
 
@@ -1540,82 +1540,6 @@ BPM
 
 21
 
-[![CHA](http://d2uki2uvp6v3wr.cloudfront.net/nba/cha.svg)](https://www.tankathon.com/hornets)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/phx.svg)](https://www.tankathon.com/suns)
-
-[Keaton Wagler\\
-\\
-SG \| Illinois](https://www.tankathon.com/players/keaton-wagler)
-
-6'6"
-
-185 lbs
-
-Freshman
-
-19.4 yrs
-
-15.5
-
-pts
-
-5.2
-
-reb
-
-3.7
-
-ast
-
-0.3
-
-blk
-
-0.8
-
-stl
-
-18.2
-
-pts
-
-6.1
-
-reb
-
-4.4
-
-ast
-
-0.4
-
-blk
-
-0.9
-
-stl
-
-.622
-
-TS%
-
-22.1
-
-USG
-
-7.8
-
-OBPM
-
-3.5
-
-DBPM
-
-11.4
-
-BPM
-
-22
-
 [![OKC](http://d2uki2uvp6v3wr.cloudfront.net/nba/okc.svg)](https://www.tankathon.com/thunder)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/hou.svg)](https://www.tankathon.com/rockets)
 
 [Darius Acuff\\
@@ -1690,9 +1614,85 @@ DBPM
 
 BPM
 
+22
+
+[![BOS](http://d2uki2uvp6v3wr.cloudfront.net/nba/bos.svg)](https://www.tankathon.com/celtics)
+
+[Keaton Wagler\\
+\\
+SG \| Illinois](https://www.tankathon.com/players/keaton-wagler)
+
+6'6"
+
+185 lbs
+
+Freshman
+
+19.4 yrs
+
+15.7
+
+pts
+
+5.2
+
+reb
+
+3.8
+
+ast
+
+0.3
+
+blk
+
+0.8
+
+stl
+
+18.4
+
+pts
+
+6.1
+
+reb
+
+4.4
+
+ast
+
+0.4
+
+blk
+
+0.9
+
+stl
+
+.633
+
+TS%
+
+22.2
+
+USG
+
+8.1
+
+OBPM
+
+3.4
+
+DBPM
+
+11.5
+
+BPM
+
 23
 
-[![NY](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)
+[![CHA](http://d2uki2uvp6v3wr.cloudfront.net/nba/cha.svg)](https://www.tankathon.com/hornets)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/phx.svg)](https://www.tankathon.com/suns)
 
 [Dash Daniels\\
 \\
@@ -1756,7 +1756,7 @@ USG
 
 24
 
-[![BOS](http://d2uki2uvp6v3wr.cloudfront.net/nba/bos.svg)](https://www.tankathon.com/celtics)
+[![LAL](http://d2uki2uvp6v3wr.cloudfront.net/nba/lal.svg)](https://www.tankathon.com/lakers)
 
 [Paul McNeil Jr.\\
 \\
@@ -1832,7 +1832,299 @@ BPM
 
 25
 
-[![LAL](http://d2uki2uvp6v3wr.cloudfront.net/nba/lal.svg)](https://www.tankathon.com/lakers)
+[![NY](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)
+
+[Isaiah Evans\\
+\\
+SF \| Duke](https://www.tankathon.com/players/isaiah-evans)
+
+6'6"
+
+180 lbs
+
+Sophomore
+
+20.5 yrs
+
+14.4
+
+pts
+
+3.5
+
+reb
+
+1.4
+
+ast
+
+1.0
+
+blk
+
+0.9
+
+stl
+
+19.0
+
+pts
+
+4.6
+
+reb
+
+1.8
+
+ast
+
+1.3
+
+blk
+
+1.2
+
+stl
+
+.592
+
+TS%
+
+24.0
+
+USG
+
+5.7
+
+OBPM
+
+3.0
+
+DBPM
+
+8.7
+
+BPM
+
+26
+
+[![MIN](http://d2uki2uvp6v3wr.cloudfront.net/nba/min.svg)](https://www.tankathon.com/timberwolves)
+
+[Neoklis Avdalas\\
+\\
+SG/SF \| Virginia Tech](https://www.tankathon.com/players/neoklis-avdalas)
+
+6'8.75"
+
+198 lbs
+
+Freshman
+
+20.4 yrs
+
+14.5
+
+pts
+
+3.4
+
+reb
+
+5.0
+
+ast
+
+0.6
+
+blk
+
+0.6
+
+stl
+
+16.1
+
+pts
+
+3.7
+
+reb
+
+5.5
+
+ast
+
+0.7
+
+blk
+
+0.7
+
+stl
+
+.531
+
+TS%
+
+24.7
+
+USG
+
+3.1
+
+OBPM
+
+1.2
+
+DBPM
+
+4.3
+
+BPM
+
+27
+
+[![DEN](http://d2uki2uvp6v3wr.cloudfront.net/nba/den.svg)](https://www.tankathon.com/nuggets)
+
+[Dame Sarr\\
+\\
+SG/SF \| Duke](https://www.tankathon.com/players/dame-sarr)
+
+6'7"
+
+181 lbs
+
+Freshman
+
+20.0 yrs
+
+6.4
+
+pts
+
+3.4
+
+reb
+
+0.8
+
+ast
+
+0.2
+
+blk
+
+1.3
+
+stl
+
+11.8
+
+pts
+
+6.2
+
+reb
+
+1.5
+
+ast
+
+0.3
+
+blk
+
+2.3
+
+stl
+
+.517
+
+TS%
+
+17.6
+
+USG
+
+0.1
+
+OBPM
+
+4.5
+
+DBPM
+
+4.6
+
+BPM
+
+28
+
+[![CLE](http://d2uki2uvp6v3wr.cloudfront.net/nba/cle.svg)](https://www.tankathon.com/cavaliers)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)
+
+[Sergio de Larrea\\
+\\
+PG/SG \| Valencia](https://www.tankathon.com/players/sergio-de-larrea)
+
+6'6"
+
+198 lbs
+
+International
+
+20.5 yrs
+
+9.7
+
+pts
+
+2.1
+
+reb
+
+3.3
+
+ast
+
+0.1
+
+blk
+
+0.5
+
+stl
+
+21.0
+
+pts
+
+4.5
+
+reb
+
+7.1
+
+ast
+
+0.2
+
+blk
+
+1.1
+
+stl
+
+.694
+
+TS%
+
+24.5
+
+USG
+
+29
+
+[![DET](http://d2uki2uvp6v3wr.cloudfront.net/nba/det.svg)](https://www.tankathon.com/pistons)
 
 [Morez Johnson Jr.\\
 \\
@@ -1906,298 +2198,6 @@ DBPM
 
 BPM
 
-26
-
-[![MIN](http://d2uki2uvp6v3wr.cloudfront.net/nba/min.svg)](https://www.tankathon.com/timberwolves)
-
-[Isaiah Evans\\
-\\
-SF \| Duke](https://www.tankathon.com/players/isaiah-evans)
-
-6'6"
-
-180 lbs
-
-Sophomore
-
-20.5 yrs
-
-14.4
-
-pts
-
-3.5
-
-reb
-
-1.4
-
-ast
-
-1.0
-
-blk
-
-0.9
-
-stl
-
-19.0
-
-pts
-
-4.6
-
-reb
-
-1.8
-
-ast
-
-1.3
-
-blk
-
-1.2
-
-stl
-
-.592
-
-TS%
-
-24.0
-
-USG
-
-5.7
-
-OBPM
-
-3.0
-
-DBPM
-
-8.6
-
-BPM
-
-27
-
-[![DEN](http://d2uki2uvp6v3wr.cloudfront.net/nba/den.svg)](https://www.tankathon.com/nuggets)
-
-[Neoklis Avdalas\\
-\\
-SG/SF \| Virginia Tech](https://www.tankathon.com/players/neoklis-avdalas)
-
-6'8.75"
-
-198 lbs
-
-Freshman
-
-20.4 yrs
-
-14.5
-
-pts
-
-3.4
-
-reb
-
-5.0
-
-ast
-
-0.6
-
-blk
-
-0.6
-
-stl
-
-16.1
-
-pts
-
-3.7
-
-reb
-
-5.5
-
-ast
-
-0.7
-
-blk
-
-0.7
-
-stl
-
-.531
-
-TS%
-
-24.7
-
-USG
-
-3.1
-
-OBPM
-
-1.2
-
-DBPM
-
-4.2
-
-BPM
-
-28
-
-[![CLE](http://d2uki2uvp6v3wr.cloudfront.net/nba/cle.svg)](https://www.tankathon.com/cavaliers)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)
-
-[Sergio de Larrea\\
-\\
-PG/SG \| Valencia](https://www.tankathon.com/players/sergio-de-larrea)
-
-6'6"
-
-198 lbs
-
-International
-
-20.5 yrs
-
-9.7
-
-pts
-
-2.1
-
-reb
-
-3.3
-
-ast
-
-0.1
-
-blk
-
-0.5
-
-stl
-
-21.0
-
-pts
-
-4.5
-
-reb
-
-7.1
-
-ast
-
-0.2
-
-blk
-
-1.1
-
-stl
-
-.694
-
-TS%
-
-24.5
-
-USG
-
-29
-
-[![DET](http://d2uki2uvp6v3wr.cloudfront.net/nba/det.svg)](https://www.tankathon.com/pistons)
-
-[JT Toppin\\
-\\
-PF \| Texas Tech](https://www.tankathon.com/players/jt-toppin)
-
-6'9"
-
-230 lbs
-
-Junior
-
-21.0 yrs
-
-20.6
-
-pts
-
-11.0
-
-reb
-
-1.9
-
-ast
-
-1.7
-
-blk
-
-1.1
-
-stl
-
-22.0
-
-pts
-
-11.7
-
-reb
-
-2.0
-
-ast
-
-1.8
-
-blk
-
-1.2
-
-stl
-
-.556
-
-TS%
-
-30.2
-
-USG
-
-4.5
-
-OBPM
-
-2.4
-
-DBPM
-
-6.9
-
-BPM
-
 30
 
 [![WAS](http://d2uki2uvp6v3wr.cloudfront.net/nba/was.svg)](https://www.tankathon.com/wizards)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/okc.svg)](https://www.tankathon.com/thunder)
@@ -2262,7 +2262,7 @@ TS%
 
 USG
 
-5.1
+5.2
 
 OBPM
 
@@ -2277,6 +2277,82 @@ BPM
 Round 2
 
 31
+
+[![BOS](http://d2uki2uvp6v3wr.cloudfront.net/nba/bos.svg)](https://www.tankathon.com/celtics)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/no.svg)](https://www.tankathon.com/pelicans)
+
+[Aday Mara\\
+\\
+C \| Michigan](https://www.tankathon.com/players/aday-mara)
+
+7'3"
+
+255 lbs
+
+Junior
+
+21.2 yrs
+
+10.1
+
+pts
+
+7.9
+
+reb
+
+2.4
+
+ast
+
+2.5
+
+blk
+
+0.5
+
+stl
+
+16.6
+
+pts
+
+12.9
+
+reb
+
+3.9
+
+ast
+
+4.1
+
+blk
+
+0.8
+
+stl
+
+.606
+
+TS%
+
+22.0
+
+USG
+
+3.0
+
+OBPM
+
+8.5
+
+DBPM
+
+11.4
+
+BPM
+
+32
 
 [![MEM](http://d2uki2uvp6v3wr.cloudfront.net/nba/mem.svg)](https://www.tankathon.com/grizzlies)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/ind.svg)](https://www.tankathon.com/pacers)
 
@@ -2352,237 +2428,9 @@ DBPM
 
 BPM
 
-32
-
-[![SAC](http://d2uki2uvp6v3wr.cloudfront.net/nba/sac.svg)](https://www.tankathon.com/kings)
-
-[Dame Sarr\\
-\\
-SG/SF \| Duke](https://www.tankathon.com/players/dame-sarr)
-
-6'7"
-
-181 lbs
-
-Freshman
-
-20.0 yrs
-
-6.4
-
-pts
-
-3.4
-
-reb
-
-0.8
-
-ast
-
-0.2
-
-blk
-
-1.3
-
-stl
-
-11.8
-
-pts
-
-6.2
-
-reb
-
-1.5
-
-ast
-
-0.3
-
-blk
-
-2.3
-
-stl
-
-.517
-
-TS%
-
-17.6
-
-USG
-
-0.1
-
-OBPM
-
-4.5
-
-DBPM
-
-4.6
-
-BPM
-
 33
 
-[![BOS](http://d2uki2uvp6v3wr.cloudfront.net/nba/bos.svg)](https://www.tankathon.com/celtics)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/no.svg)](https://www.tankathon.com/pelicans)
-
-[Aday Mara\\
-\\
-C \| Michigan](https://www.tankathon.com/players/aday-mara)
-
-7'3"
-
-255 lbs
-
-Junior
-
-21.2 yrs
-
-10.1
-
-pts
-
-7.9
-
-reb
-
-2.4
-
-ast
-
-2.5
-
-blk
-
-0.5
-
-stl
-
-16.6
-
-pts
-
-12.9
-
-reb
-
-3.9
-
-ast
-
-4.1
-
-blk
-
-0.8
-
-stl
-
-.606
-
-TS%
-
-22.0
-
-USG
-
-2.9
-
-OBPM
-
-8.5
-
-DBPM
-
-11.4
-
-BPM
-
-34
-
-[![NY](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/was.svg)](https://www.tankathon.com/wizards)
-
-[Alex Condon\\
-\\
-PF/C \| Florida](https://www.tankathon.com/players/alex-condon)
-
-7'0.5"
-
-222 lbs
-
-Junior
-
-21.9 yrs
-
-14.5
-
-pts
-
-8.5
-
-reb
-
-3.5
-
-ast
-
-1.4
-
-blk
-
-0.7
-
-stl
-
-17.2
-
-pts
-
-10.0
-
-reb
-
-4.2
-
-ast
-
-1.7
-
-blk
-
-0.9
-
-stl
-
-.587
-
-TS%
-
-21.6
-
-USG
-
-5.5
-
-OBPM
-
-5.6
-
-DBPM
-
-11.1
-
-BPM
-
-35
-
-[![BKN](http://d2uki2uvp6v3wr.cloudfront.net/nba/bkn.svg)](https://www.tankathon.com/nets)
+[![SAC](http://d2uki2uvp6v3wr.cloudfront.net/nba/sac.svg)](https://www.tankathon.com/kings)
 
 [Henri Veesaar\\
 \\
@@ -2656,9 +2504,161 @@ DBPM
 
 BPM
 
+34
+
+[![NY](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/was.svg)](https://www.tankathon.com/wizards)
+
+[JT Toppin\\
+\\
+PF \| Texas Tech](https://www.tankathon.com/players/jt-toppin)
+
+6'9"
+
+230 lbs
+
+Junior
+
+21.0 yrs
+
+20.6
+
+pts
+
+11.0
+
+reb
+
+1.9
+
+ast
+
+1.7
+
+blk
+
+1.1
+
+stl
+
+22.0
+
+pts
+
+11.7
+
+reb
+
+2.0
+
+ast
+
+1.8
+
+blk
+
+1.2
+
+stl
+
+.556
+
+TS%
+
+30.2
+
+USG
+
+4.5
+
+OBPM
+
+2.4
+
+DBPM
+
+6.9
+
+BPM
+
+35
+
+[![BKN](http://d2uki2uvp6v3wr.cloudfront.net/nba/bkn.svg)](https://www.tankathon.com/nets)
+
+[Alex Condon\\
+\\
+PF/C \| Florida](https://www.tankathon.com/players/alex-condon)
+
+7'0.5"
+
+222 lbs
+
+Junior
+
+21.9 yrs
+
+14.5
+
+pts
+
+8.5
+
+reb
+
+3.5
+
+ast
+
+1.4
+
+blk
+
+0.7
+
+stl
+
+17.2
+
+pts
+
+10.0
+
+reb
+
+4.2
+
+ast
+
+1.7
+
+blk
+
+0.9
+
+stl
+
+.587
+
+TS%
+
+21.6
+
+USG
+
+5.5
+
+OBPM
+
+5.6
+
+DBPM
+
+11.1
+
+BPM
+
 36
 
-[![SA](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/uta.svg)](https://www.tankathon.com/jazz)
+[![SAC](http://d2uki2uvp6v3wr.cloudfront.net/nba/sac.svg)](https://www.tankathon.com/kings)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/cha.svg)](https://www.tankathon.com/hornets)
 
 [Christian Anderson\\
 \\
@@ -2734,7 +2734,7 @@ BPM
 
 37
 
-[![SAC](http://d2uki2uvp6v3wr.cloudfront.net/nba/sac.svg)](https://www.tankathon.com/kings)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/cha.svg)](https://www.tankathon.com/hornets)
+[![SA](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/uta.svg)](https://www.tankathon.com/jazz)
 
 [Brayden Burries\\
 \\
@@ -2752,7 +2752,7 @@ Freshman
 
 pts
 
-3.4
+4.3
 
 reb
 
@@ -2796,11 +2796,11 @@ TS%
 
 USG
 
-3.4
+3.3
 
 OBPM
 
-5.6
+5.5
 
 DBPM
 
@@ -3032,7 +3032,7 @@ OBPM
 
 DBPM
 
-14.2
+14.1
 
 BPM
 
@@ -3100,7 +3100,7 @@ TS%
 
 USG
 
-7.1
+7.2
 
 OBPM
 
@@ -3180,7 +3180,7 @@ USG
 
 OBPM
 
-3.6
+3.7
 
 DBPM
 
@@ -3189,6 +3189,82 @@ DBPM
 BPM
 
 43
+
+[![SA](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/por.svg)](https://www.tankathon.com/trail-blazers)
+
+[Alex Karaban\\
+\\
+SF/PF \| UConn](https://www.tankathon.com/players/alex-karaban)
+
+6'7.75"
+
+219 lbs
+
+Senior
+
+23.6 yrs
+
+14.0
+
+pts
+
+5.3
+
+reb
+
+2.1
+
+ast
+
+1.0
+
+blk
+
+0.9
+
+stl
+
+15.1
+
+pts
+
+5.7
+
+reb
+
+2.2
+
+ast
+
+1.1
+
+blk
+
+1.0
+
+stl
+
+.617
+
+TS%
+
+18.5
+
+USG
+
+5.6
+
+OBPM
+
+3.8
+
+DBPM
+
+9.4
+
+BPM
+
+44
 
 [![BKN](http://d2uki2uvp6v3wr.cloudfront.net/nba/bkn.svg)](https://www.tankathon.com/nets)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/atl.svg)](https://www.tankathon.com/hawks)
 
@@ -3264,82 +3340,6 @@ DBPM
 
 BPM
 
-44
-
-[![SA](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/por.svg)](https://www.tankathon.com/trail-blazers)
-
-[Alex Karaban\\
-\\
-SF/PF \| UConn](https://www.tankathon.com/players/alex-karaban)
-
-6'7.75"
-
-219 lbs
-
-Senior
-
-23.6 yrs
-
-14.0
-
-pts
-
-5.3
-
-reb
-
-2.1
-
-ast
-
-1.0
-
-blk
-
-0.9
-
-stl
-
-15.1
-
-pts
-
-5.7
-
-reb
-
-2.2
-
-ast
-
-1.1
-
-blk
-
-1.0
-
-stl
-
-.617
-
-TS%
-
-18.5
-
-USG
-
-5.5
-
-OBPM
-
-3.8
-
-DBPM
-
-9.4
-
-BPM
-
 45
 
 [![SA](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/mia.svg)](https://www.tankathon.com/heat)
@@ -3408,7 +3408,7 @@ USG
 
 OBPM
 
-3.2
+3.3
 
 DBPM
 
@@ -3419,6 +3419,82 @@ BPM
 46
 
 [![CHA](http://d2uki2uvp6v3wr.cloudfront.net/nba/cha.svg)](https://www.tankathon.com/hornets)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/gs.svg)](https://www.tankathon.com/warriors)
+
+[Tahaad Pettiford\\
+\\
+PG \| Auburn](https://www.tankathon.com/players/tahaad-pettiford)
+
+6'1.5"
+
+169 lbs
+
+Sophomore
+
+20.9 yrs
+
+14.3
+
+pts
+
+2.9
+
+reb
+
+3.2
+
+ast
+
+0.8
+
+blk
+
+1.1
+
+stl
+
+17.1
+
+pts
+
+3.4
+
+reb
+
+3.8
+
+ast
+
+0.9
+
+blk
+
+1.3
+
+stl
+
+.499
+
+TS%
+
+26.4
+
+USG
+
+1.6
+
+OBPM
+
+0.6
+
+DBPM
+
+2.1
+
+BPM
+
+47
+
+[![CLE](http://d2uki2uvp6v3wr.cloudfront.net/nba/cle.svg)](https://www.tankathon.com/cavaliers)
 
 [Karter Knox\\
 \\
@@ -3492,9 +3568,9 @@ DBPM
 
 BPM
 
-47
+48
 
-[![CLE](http://d2uki2uvp6v3wr.cloudfront.net/nba/cle.svg)](https://www.tankathon.com/cavaliers)
+[![ORL](http://d2uki2uvp6v3wr.cloudfront.net/nba/orl.svg)](https://www.tankathon.com/magic)
 
 [Darrion Williams\\
 \\
@@ -3512,7 +3588,7 @@ Senior
 
 pts
 
-4.3
+5.6
 
 reb
 
@@ -3560,7 +3636,7 @@ USG
 
 OBPM
 
-1.8
+1.9
 
 DBPM
 
@@ -3568,9 +3644,9 @@ DBPM
 
 BPM
 
-48
+49
 
-[![ORL](http://d2uki2uvp6v3wr.cloudfront.net/nba/orl.svg)](https://www.tankathon.com/magic)
+[![HOU](http://d2uki2uvp6v3wr.cloudfront.net/nba/hou.svg)](https://www.tankathon.com/rockets)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/phi.svg)](https://www.tankathon.com/76ers)
 
 [Richie Saunders\\
 \\
@@ -3644,9 +3720,9 @@ DBPM
 
 BPM
 
-49
+50
 
-[![HOU](http://d2uki2uvp6v3wr.cloudfront.net/nba/hou.svg)](https://www.tankathon.com/rockets)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/phi.svg)](https://www.tankathon.com/76ers)
+[![TOR](http://d2uki2uvp6v3wr.cloudfront.net/nba/tor.svg)](https://www.tankathon.com/raptors)
 
 [Ryan Conwell\\
 \\
@@ -3708,7 +3784,7 @@ TS%
 
 USG
 
-6.8
+6.7
 
 OBPM
 
@@ -3720,85 +3796,9 @@ DBPM
 
 BPM
 
-50
-
-[![TOR](http://d2uki2uvp6v3wr.cloudfront.net/nba/tor.svg)](https://www.tankathon.com/raptors)
-
-[Tahaad Pettiford\\
-\\
-PG \| Auburn](https://www.tankathon.com/players/tahaad-pettiford)
-
-6'1.5"
-
-169 lbs
-
-Sophomore
-
-20.9 yrs
-
-14.3
-
-pts
-
-2.9
-
-reb
-
-3.2
-
-ast
-
-0.8
-
-blk
-
-1.1
-
-stl
-
-17.1
-
-pts
-
-3.4
-
-reb
-
-3.8
-
-ast
-
-0.9
-
-blk
-
-1.3
-
-stl
-
-.499
-
-TS%
-
-26.4
-
-USG
-
-1.6
-
-OBPM
-
-0.6
-
-DBPM
-
-2.2
-
-BPM
-
 51
 
-[![WAS](http://d2uki2uvp6v3wr.cloudfront.net/nba/was.svg)](https://www.tankathon.com/wizards)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/phx.svg)](https://www.tankathon.com/suns)
+[![HOU](http://d2uki2uvp6v3wr.cloudfront.net/nba/hou.svg)](https://www.tankathon.com/rockets)
 
 [Tarris Reed Jr.\\
 \\
@@ -3874,7 +3874,7 @@ BPM
 
 52
 
-[![HOU](http://d2uki2uvp6v3wr.cloudfront.net/nba/hou.svg)](https://www.tankathon.com/rockets)
+[![WAS](http://d2uki2uvp6v3wr.cloudfront.net/nba/was.svg)](https://www.tankathon.com/wizards)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/phx.svg)](https://www.tankathon.com/suns)
 
 [Tomislav Ivisic\\
 \\
@@ -3888,11 +3888,11 @@ Junior
 
 22.8 yrs
 
-9.9
+9.7
 
 pts
 
-4.7
+4.5
 
 reb
 
@@ -3900,7 +3900,7 @@ reb
 
 ast
 
-0.6
+0.7
 
 blk
 
@@ -3908,11 +3908,11 @@ blk
 
 stl
 
-15.4
+15.2
 
 pts
 
-7.3
+7.0
 
 reb
 
@@ -3920,7 +3920,7 @@ reb
 
 ast
 
-0.9
+1.1
 
 blk
 
@@ -3928,23 +3928,23 @@ blk
 
 stl
 
-.617
+.615
 
 TS%
 
-20.1
+20.3
 
 USG
 
-3.6
+3.4
 
 OBPM
 
-2.9
+3.0
 
 DBPM
 
-6.6
+6.4
 
 BPM
 
@@ -4012,7 +4012,7 @@ TS%
 
 USG
 
-5.8
+5.9
 
 OBPM
 
@@ -4026,159 +4026,7 @@ BPM
 
 54
 
-[![WAS](http://d2uki2uvp6v3wr.cloudfront.net/nba/was.svg)](https://www.tankathon.com/wizards)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)
-
-[Andrej Stojakovic\\
-\\
-SG \| Illinois](https://www.tankathon.com/players/andrej-stojakovic)
-
-6'7"
-
-215 lbs
-
-Junior
-
-21.8 yrs
-
-14.4
-
-pts
-
-4.4
-
-reb
-
-1.1
-
-ast
-
-0.7
-
-blk
-
-0.4
-
-stl
-
-19.9
-
-pts
-
-6.0
-
-reb
-
-1.5
-
-ast
-
-1.0
-
-blk
-
-0.5
-
-stl
-
-.591
-
-TS%
-
-26.1
-
-USG
-
-3.8
-
-OBPM
-
-2.1
-
-DBPM
-
-5.9
-
-BPM
-
-55
-
 [![TOR](http://d2uki2uvp6v3wr.cloudfront.net/nba/tor.svg)](https://www.tankathon.com/raptors)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/lal.svg)](https://www.tankathon.com/lakers)
-
-[Solo Ball\\
-\\
-SG \| UConn](https://www.tankathon.com/players/solo-ball)
-
-6'4"
-
-200 lbs
-
-Junior
-
-22.5 yrs
-
-14.8
-
-pts
-
-3.6
-
-reb
-
-1.4
-
-ast
-
-0.4
-
-blk
-
-0.6
-
-stl
-
-18.5
-
-pts
-
-4.5
-
-reb
-
-1.8
-
-ast
-
-0.5
-
-blk
-
-0.8
-
-stl
-
-.571
-
-TS%
-
-24.9
-
-USG
-
-3.9
-
-OBPM
-
-2.0
-
-DBPM
-
-5.9
-
-BPM
-
-56
-
-[![NY](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/min.svg)](https://www.tankathon.com/timberwolves)
 
 [Milan Momcilovic\\
 \\
@@ -4244,7 +4092,7 @@ USG
 
 OBPM
 
-3.5
+3.4
 
 DBPM
 
@@ -4252,115 +4100,39 @@ DBPM
 
 BPM
 
-57
+55
 
-[![PHX](http://d2uki2uvp6v3wr.cloudfront.net/nba/phx.svg)](https://www.tankathon.com/suns)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/den.svg)](https://www.tankathon.com/nuggets)
+[![WAS](http://d2uki2uvp6v3wr.cloudfront.net/nba/was.svg)](https://www.tankathon.com/wizards)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)
 
-[Milos Uzan\\
+[Andrej Stojakovic\\
 \\
-PG \| Houston](https://www.tankathon.com/players/milos-uzan)
+SG \| Illinois](https://www.tankathon.com/players/andrej-stojakovic)
 
-6'4.5"
+6'7"
 
-186 lbs
+215 lbs
 
-Senior
+Junior
 
-23.5 yrs
+21.8 yrs
 
-10.9
-
-pts
-
-2.9
-
-reb
-
-4.2
-
-ast
-
-0.1
-
-blk
-
-0.9
-
-stl
-
-12.0
+14.5
 
 pts
 
-3.2
+4.4
 
 reb
-
-4.6
-
-ast
-
-0.1
-
-blk
 
 1.0
 
-stl
-
-.447
-
-TS%
-
-21.0
-
-USG
-
-0.2
-
-OBPM
-
-3.0
-
-DBPM
-
-3.2
-
-BPM
-
-58
-
-[![MIN](http://d2uki2uvp6v3wr.cloudfront.net/nba/min.svg)](https://www.tankathon.com/timberwolves)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)
-
-[Ian Jackson\\
-\\
-SG \| St. John's](https://www.tankathon.com/players/ian-jackson)
-
-6'5"
-
-195 lbs
-
-Sophomore
-
-21.3 yrs
-
-11.1
-
-pts
-
-2.7
-
-reb
-
-1.2
-
 ast
 
-0.3
+0.7
 
 blk
 
-0.7
+0.5
 
 stl
 
@@ -4368,45 +4140,45 @@ stl
 
 pts
 
-4.8
+6.0
 
 reb
 
-2.1
+1.4
 
 ast
 
-0.4
+0.9
 
 blk
 
-1.2
+0.6
 
 stl
 
-.583
+.582
 
 TS%
 
-25.2
+26.4
 
 USG
 
-2.9
+3.5
 
 OBPM
 
-1.8
+2.2
 
 DBPM
 
-4.7
+5.7
 
 BPM
 
-59
+56
 
-[![NY](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/det.svg)](https://www.tankathon.com/pistons)
+[![NY](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/min.svg)](https://www.tankathon.com/timberwolves)
 
 [Johann Grünloh\\
 \\
@@ -4480,6 +4252,234 @@ DBPM
 
 BPM
 
+57
+
+[![PHX](http://d2uki2uvp6v3wr.cloudfront.net/nba/phx.svg)](https://www.tankathon.com/suns)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/den.svg)](https://www.tankathon.com/nuggets)
+
+[Milos Uzan\\
+\\
+PG \| Houston](https://www.tankathon.com/players/milos-uzan)
+
+6'4.5"
+
+186 lbs
+
+Senior
+
+23.5 yrs
+
+10.9
+
+pts
+
+2.9
+
+reb
+
+4.2
+
+ast
+
+0.1
+
+blk
+
+0.9
+
+stl
+
+12.0
+
+pts
+
+3.2
+
+reb
+
+4.6
+
+ast
+
+0.1
+
+blk
+
+1.0
+
+stl
+
+.447
+
+TS%
+
+21.0
+
+USG
+
+0.1
+
+OBPM
+
+3.0
+
+DBPM
+
+3.2
+
+BPM
+
+58
+
+[![MIN](http://d2uki2uvp6v3wr.cloudfront.net/nba/min.svg)](https://www.tankathon.com/timberwolves)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/sa.svg)](https://www.tankathon.com/spurs)
+
+[Solo Ball\\
+\\
+SG \| UConn](https://www.tankathon.com/players/solo-ball)
+
+6'4"
+
+200 lbs
+
+Junior
+
+22.5 yrs
+
+14.8
+
+pts
+
+3.6
+
+reb
+
+1.4
+
+ast
+
+0.4
+
+blk
+
+0.6
+
+stl
+
+18.5
+
+pts
+
+4.5
+
+reb
+
+1.8
+
+ast
+
+0.5
+
+blk
+
+0.8
+
+stl
+
+.571
+
+TS%
+
+24.9
+
+USG
+
+3.9
+
+OBPM
+
+2.0
+
+DBPM
+
+5.9
+
+BPM
+
+59
+
+[![NY](http://d2uki2uvp6v3wr.cloudfront.net/nba/ny.svg)](https://www.tankathon.com/knicks)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/det.svg)](https://www.tankathon.com/pistons)
+
+[Ian Jackson\\
+\\
+SG \| St. John's](https://www.tankathon.com/players/ian-jackson)
+
+6'5"
+
+195 lbs
+
+Sophomore
+
+21.3 yrs
+
+11.1
+
+pts
+
+2.7
+
+reb
+
+1.2
+
+ast
+
+0.3
+
+blk
+
+0.7
+
+stl
+
+19.8
+
+pts
+
+4.8
+
+reb
+
+2.1
+
+ast
+
+0.4
+
+blk
+
+1.2
+
+stl
+
+.583
+
+TS%
+
+25.2
+
+USG
+
+2.9
+
+OBPM
+
+1.8
+
+DBPM
+
+4.7
+
+BPM
+
 60
 
 [![WAS](http://d2uki2uvp6v3wr.cloudfront.net/nba/was.svg)](https://www.tankathon.com/wizards)[![](http://d2uki2uvp6v3wr.cloudfront.net/nba/okc.svg)](https://www.tankathon.com/thunder)
@@ -4500,15 +4500,15 @@ International
 
 pts
 
-2.1
+2.2
 
 reb
 
-0.4
+0.5
 
 ast
 
-0.2
+0.3
 
 blk
 
@@ -4516,19 +4516,19 @@ blk
 
 stl
 
-11.3
+11.2
 
 pts
 
-5.3
+5.6
 
 reb
 
-1.1
+1.3
 
 ast
 
-0.6
+0.8
 
 blk
 
@@ -4536,6 +4536,6 @@ blk
 
 stl
 
-.651
+.634
 
 TS%

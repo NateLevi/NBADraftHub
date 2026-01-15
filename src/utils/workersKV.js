@@ -22,15 +22,7 @@ export async function fetchDraftDataFromKV() {
     const response = await fetch(url);
 
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Failed to fetch draft data: ${response.status} ${response.statusText}. Response: ${errorText.substring(0, 200)}`);
-    }
-
-    // Check if response is actually JSON before parsing
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      const text = await response.text();
-      throw new Error(`Expected JSON but got ${contentType}. Response: ${text.substring(0, 200)}`);
+      throw new Error(`Failed to fetch draft data: ${response.status}`);
     }
 
     const data = await response.json();

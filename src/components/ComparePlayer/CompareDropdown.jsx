@@ -30,16 +30,16 @@ const CompareDropdown = ({
 }) => {
   const { players } = usePlayers();
 
-  // Process and sort players by draft rank (tankathonRank)
+  // Process and sort players by consensus rank (average of Tankathon + NBADraft.net)
   const sortedPlayers = useMemo(() => {
     return players
       .filter(player => player.id !== excludePlayerId)
       .map(player => ({
         ...player,
-        // Use tankathonRank from new data structure
-        consensusRank: player.tankathonRank || 999
+        // Use actual consensusRank from player data, rounded for display
+        displayRank: player.consensusRank ? Math.round(player.consensusRank) : 999
       }))
-      .sort((a, b) => a.consensusRank - b.consensusRank);
+      .sort((a, b) => (a.consensusRank || 999) - (b.consensusRank || 999));
   }, [players, excludePlayerId]);
 
   const handleChange = (event, newValue) => {
@@ -120,19 +120,19 @@ const CompareDropdown = ({
             <Avatar src={option.photoUrl} sx={{ width: 40, height: 40 }}>
               {option.name?.charAt(0)}
             </Avatar>
-            
+
             {/* Player Info */}
             <Box sx={{ flex: 1 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
-                <Typography variant="body2" sx={{ 
+                <Typography variant="body2" sx={{
                   fontWeight: '600',
                   color: COLORS.text,
                   fontFamily: '"Lato", sans-serif'
                 }}>
                   {option.name}
                 </Typography>
-                <Chip 
-                  label={`#${option.consensusRank}`}
+                <Chip
+                  label={`#${option.displayRank}`}
                   size="small"
                   sx={{
                     height: 20,
@@ -144,7 +144,7 @@ const CompareDropdown = ({
                   }}
                 />
               </Box>
-              <Typography variant="caption" sx={{ 
+              <Typography variant="caption" sx={{
                 color: COLORS.secondary,
                 fontFamily: '"Lato", sans-serif'
               }}>

@@ -14,12 +14,15 @@ const getStatValue = (stats, key) => {
   return stats[key];
 };
 
-// Row data for the DataGrid (updated for Tankathon + Barttorvik data)
+// Row data for the DataGrid (updated for Tankathon + NBADraft.net + ESPN data)
 export const generateTableRows = (players) => {
   return players.map((player) => {
     const stats = player.stats || {};
-    const rank = player.tankathonRank;
-    const nbaTeamCode = rank ? draftOrderMapping[rank.toString()] : null;
+    // Use displayRank for unique 1-60 ranking (after tiebreaker sorting)
+    // Falls back to rounded consensusRank if displayRank not available
+    const rank = player.displayRank || (player.consensusRank ? Math.round(player.consensusRank) : null);
+    // Use tankathonRank for NBA team draft order mapping (as primary source)
+    const nbaTeamCode = player.tankathonRank ? draftOrderMapping[player.tankathonRank.toString()] : null;
 
     return {
       // Base info

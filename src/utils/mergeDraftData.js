@@ -7,6 +7,7 @@
 
 import { parseTankathonMarkdown } from './parseTankathon';
 import { parseNBADraftNetMarkdown } from './parseNBADraftNet';
+import { parseESPNMarkdown } from './parseESPN';
 import { findBarttorvikMatch, findPlayerByName, normalizeName, normalizeNameLoose } from './nameMatching';
 import { getPlayerImageUrl } from './imageHelpers';
 
@@ -182,13 +183,14 @@ function generatePlayerId(slug) {
 }
 
 /**
- * Calculate consensus rank from available rankings (Tankathon + NBADraft.net only)
+ * Calculate consensus rank from available rankings (Tankathon + NBADraft.net + ESPN)
  * @param {number|null} tankathonRank
  * @param {number|null} nbaDraftNetRank
+ * @param {number|null} espnRank
  * @returns {number} - Average of available ranks, or 999 if none
  */
-function calculateConsensusRank(tankathonRank, nbaDraftNetRank) {
-  const ranks = [tankathonRank, nbaDraftNetRank].filter(
+function calculateConsensusRank(tankathonRank, nbaDraftNetRank, espnRank) {
+  const ranks = [tankathonRank, nbaDraftNetRank, espnRank].filter(
     r => r !== null && r !== undefined && r > 0
   );
 
@@ -196,6 +198,36 @@ function calculateConsensusRank(tankathonRank, nbaDraftNetRank) {
 
   const avg = ranks.reduce((a, b) => a + b, 0) / ranks.length;
   return Math.round(avg * 10) / 10; // Round to 1 decimal
+}
+
+/**
+ * Sort players with tiebreaker logic to ensure unique ordering
+ * Primary: consensus rank average
+ * Tiebreakers: Tankathon rank > ESPN rank > NBADraftNet rank > alphabetical
+ * @param {Array} players - Array of player objects
+ * @returns {Array} - Sorted array of players
+ */
+function sortPlayersWithTiebreaker(players) {
+  return players.sort((a, b) => {
+    // Primary: consensus rank average
+    if (a.consensusRank !== b.consensusRank) {
+      return a.consensusRank - b.consensusRank;
+    }
+    // Tiebreaker 1: Tankathon rank (lower is better)
+    const tankA = a.tankathonRank || 999;
+    const tankB = b.tankathonRank || 999;
+    if (tankA !== tankB) return tankA - tankB;
+    // Tiebreaker 2: ESPN rank (lower is better)
+    const espnA = a.espnRank || 999;
+    const espnB = b.espnRank || 999;
+    if (espnA !== espnB) return espnA - espnB;
+    // Tiebreaker 3: NBADraftNet rank (lower is better)
+    const nbdA = a.nbaDraftNetRank || 999;
+    const nbdB = b.nbaDraftNetRank || 999;
+    if (nbdA !== nbdB) return nbdA - nbdB;
+    // Tiebreaker 4: Alphabetical by name
+    return a.name.localeCompare(b.name);
+  });
 }
 
 /**
@@ -214,24 +246,28 @@ function createSlug(name) {
 
 /**
  * Merge draft ranking sources with Barttorvik stats
- * Uses only Tankathon and NBADraft.net for consensus rankings
+ * Uses Tankathon, NBADraft.net, and ESPN for consensus rankings
  * @param {object} params
  * @param {string} params.tankathonMarkdown - Tankathon markdown content
  * @param {string} params.nbaDraftNetMarkdown - NBADraft.net markdown content
+ * @param {string} params.espnMarkdown - ESPN mock draft markdown content
  * @param {Array} params.barttorvikData - Barttorvik player stats from API
  * @returns {{ players: Array, matchStats: object }}
  */
 export function mergeDraftData({
   tankathonMarkdown,
   nbaDraftNetMarkdown,
+  espnMarkdown,
   barttorvikData
 }) {
-  // Parse both sources
+  // Parse all sources
   const tankathonPlayers = tankathonMarkdown ? parseTankathonMarkdown(tankathonMarkdown) : [];
   const nbaDraftNetPlayers = nbaDraftNetMarkdown ? parseNBADraftNetMarkdown(nbaDraftNetMarkdown) : [];
+  const espnPlayers = espnMarkdown ? parseESPNMarkdown(espnMarkdown) : [];
 
   console.log('Parsed players - Tankathon:', tankathonPlayers.length,
-    ', NBADraft.net:', nbaDraftNetPlayers.length);
+    ', NBADraft.net:', nbaDraftNetPlayers.length,
+    ', ESPN:', espnPlayers.length);
 
   // Create a map of all unique players by normalized name
   const playerMap = new Map();
@@ -244,6 +280,7 @@ export function mergeDraftData({
       slug: tp.slug,
       tankathonRank: tp.tankathonRank,
       nbaDraftNetRank: null,
+      espnRank: null,
       // Bio from Tankathon
       position: tp.position,
       school: tp.school,
@@ -288,6 +325,7 @@ export function mergeDraftData({
         slug: ndp.slug || createSlug(ndp.name),
         tankathonRank: null,
         nbaDraftNetRank: ndp.nbaDraftNetRank,
+        espnRank: null,
         position: ndp.position,
         school: ndp.school,
         height: ndp.height,
@@ -304,48 +342,96 @@ export function mergeDraftData({
     }
   }
 
+  // Add ESPN rankings (merge with existing or add new)
+  for (const ep of espnPlayers) {
+    const normalizedName = normalizeName(ep.name);
+    let existing = playerMap.get(normalizedName);
+
+    // Fallback: try loose matching if strict match fails
+    if (!existing) {
+      const looseName = normalizeNameLoose(ep.name);
+      const strictKey = looseNameIndex.get(looseName);
+      if (strictKey) {
+        existing = playerMap.get(strictKey);
+      }
+    }
+
+    if (existing) {
+      // Update existing player with ESPN rank
+      existing.espnRank = ep.espnRank;
+    } else {
+      // New player only in ESPN (rare, but handle it)
+      playerMap.set(normalizedName, {
+        name: ep.name,
+        slug: ep.slug || createSlug(ep.name),
+        tankathonRank: null,
+        nbaDraftNetRank: null,
+        espnRank: ep.espnRank,
+        position: ep.position,
+        school: ep.school,
+        height: null,
+        heightInches: null,
+        weight: null,
+        year: null,
+        age: null,
+      });
+      // Add to loose index
+      const looseName = normalizeNameLoose(ep.name);
+      if (!looseNameIndex.has(looseName)) {
+        looseNameIndex.set(looseName, normalizedName);
+      }
+    }
+  }
+
   // Convert map to array and calculate consensus ranks
-  // Include all Tankathon players; use consensus when NBADraft.net also has the player
+  // Include players with rankings from at least 2 sources
   let matched = 0;
   let unmatched = 0;
   let international = 0;
   let internationalWithStats = 0;
-  let withBothSources = 0;
-  let tankathonOnly = 0;
 
   const allPlayers = Array.from(playerMap.values());
-  
-  // Filter to only players who are in Tankathon (our primary source for the 60-player board)
-  const tankathonBasedPlayers = allPlayers.filter(p => p.tankathonRank !== null);
+
+  // Filter to players with at least 2 source rankings (any combination of Tankathon, NBADraft.net, ESPN)
+  const qualifiedPlayers = allPlayers.filter(p => {
+    const sourceCount = [p.tankathonRank, p.nbaDraftNetRank, p.espnRank]
+      .filter(r => r !== null && r !== undefined && r > 0).length;
+    return sourceCount >= 2;
+  });
 
   // Count stats
-  tankathonBasedPlayers.forEach(p => {
-    if (p.nbaDraftNetRank !== null) {
-      withBothSources++;
+  let withAllThree = 0;
+  let withTwoSources = 0;
+  qualifiedPlayers.forEach(p => {
+    const sourceCount = [p.tankathonRank, p.nbaDraftNetRank, p.espnRank]
+      .filter(r => r !== null && r !== undefined && r > 0).length;
+    if (sourceCount === 3) {
+      withAllThree++;
     } else {
-      tankathonOnly++;
+      withTwoSources++;
     }
   });
 
-  console.log(`Players: ${tankathonBasedPlayers.length} from Tankathon (${withBothSources} with both sources, ${tankathonOnly} Tankathon only)`);
+  console.log(`Players: ${qualifiedPlayers.length} with 2+ sources (${withAllThree} with all 3 sources, ${withTwoSources} with 2 sources)`);
 
-  const players = tankathonBasedPlayers.map(p => {
-    // Use consensus if both sources available, otherwise fall back to Tankathon rank
+  const players = qualifiedPlayers.map(p => {
+    // Use consensus from all available sources
     const consensusRank = calculateConsensusRank(
       p.tankathonRank,
-      p.nbaDraftNetRank
+      p.nbaDraftNetRank,
+      p.espnRank
     );
 
     const isInternational = p.year === 'International';
     const barttorvikMatch = findBarttorvikMatch(p, barttorvikData);
-    
+
     // For international players, try to get stats from pre-scraped Tankathon data
     const internationalStats = isInternational ? getInternationalStats(p.slug) : null;
 
     // Track stats
     let stats = null;
     let hasTankathonStats = false;
-    
+
     if (barttorvikMatch) {
       matched++;
       stats = mapBarttorvikStats(barttorvikMatch);
@@ -375,6 +461,7 @@ export function mergeDraftData({
       // Rankings from each source
       tankathonRank: p.tankathonRank,
       nbaDraftNetRank: p.nbaDraftNetRank,
+      espnRank: p.espnRank,
 
       // Consensus ranking (average of available ranks)
       consensusRank,
@@ -400,12 +487,20 @@ export function mergeDraftData({
     };
   });
 
-  // Sort by consensus rank
-  players.sort((a, b) => a.consensusRank - b.consensusRank);
+  // Sort by consensus rank with tiebreakers
+  sortPlayersWithTiebreaker(players);
+
+  // Assign sequential displayRank (1 to N) - no duplicates
+  players.forEach((player, index) => {
+    player.displayRank = index + 1;
+  });
 
   // Log some debug info
   console.log('Total unique players:', players.length);
   console.log('Sample player:', players[0]);
+
+  // Count ESPN matches
+  const withEspn = players.filter(p => p.espnRank !== null).length;
 
   return {
     players,
@@ -415,11 +510,13 @@ export function mergeDraftData({
       unmatched,
       international,
       internationalWithStats,
-      withBothSources,
-      tankathonOnly,
+      withAllThree,
+      withTwoSources,
+      withEspn,
       sourceCounts: {
         tankathon: tankathonPlayers.length,
         nbaDraftNet: nbaDraftNetPlayers.length,
+        espn: espnPlayers.length,
       }
     }
   };

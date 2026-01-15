@@ -6,7 +6,8 @@
       "Bash(npm run dev:*)",
       "Bash(timeout:*)",
       "Bash(ls:*)",
-      "Bash(node scripts/downloadNBATeamLogos.js:*)"
+      "Bash(node scripts/downloadNBATeamLogos.js:*)",
+      "Bash(node test-espn-merge.mjs:*)"
     ]
   }
 }

@@ -174,7 +174,7 @@ export const teamData = {
   "Iowa": {
     primaryColor: "#FFCD00",
     secondaryColor: "#000000",
-    textColor: "#000000"
+    textColor: "#FFFFFF"
   },
   "Virginia": {
     primaryColor: "#232D4B",

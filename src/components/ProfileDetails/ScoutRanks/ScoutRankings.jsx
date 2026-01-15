@@ -14,13 +14,18 @@ const RANKING_SOURCES = [
     name: 'NBADraft.net',
     color: '#0066cc',
   },
+  {
+    key: 'espnRank',
+    name: 'ESPN',
+    color: '#cc0000',
+  },
 ];
 
 const ScoutRankings = ({ player }) => {
   const { isMobile, isTablet } = useResponsive();
-  
+
   const consensusRank = player?.consensusRank;
-  
+
   // Count how many sources have rankings for this player
   const sourcesWithRanks = RANKING_SOURCES.filter(
     source => player?.[source.key] !== null && player?.[source.key] !== undefined
@@ -65,7 +70,7 @@ const ScoutRankings = ({ player }) => {
           >
             Consensus Ranking
           </Typography>
-          
+
           <Typography
             variant="h2"
             sx={{
@@ -77,7 +82,7 @@ const ScoutRankings = ({ player }) => {
           >
             #{Math.round(consensusRank * 10) / 10}
           </Typography>
-          
+
           <Typography
             variant="body2"
             sx={{
@@ -108,7 +113,7 @@ const ScoutRankings = ({ player }) => {
 
       <Grid container spacing={isMobile ? 1.5 : 2} sx={{ mb: isMobile ? 2 : 3 }}>
         {RANKING_SOURCES.map((source) => (
-          <Grid item xs={6} sm={6} md={6} key={source.key}>
+          <Grid item xs={6} sm={4} md={4} key={source.key}>
             <RankCard
               source={source.name}
               rank={player?.[source.key]}
@@ -128,16 +133,16 @@ const ScoutRankings = ({ player }) => {
           border: '1px solid #E2E8F0',
         }}
       >
-        <Typography 
-          variant="caption" 
+        <Typography
+          variant="caption"
           color="text.secondary"
-          sx={{ 
+          sx={{
             display: 'block',
             textAlign: 'center',
             fontSize: isMobile ? '0.7rem' : '0.75rem',
           }}
         >
-          Rankings sourced from Tankathon and NBADraft.net.
+          Rankings sourced from Tankathon, NBADraft.net, and ESPN.
           Data is updated weekly during the college basketball season.
         </Typography>
       </Paper>

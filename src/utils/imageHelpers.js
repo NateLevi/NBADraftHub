@@ -23,11 +23,7 @@ const PNG_TEAM_LOGOS = new Set([
 /**
  * Player images with PNG extension (all others are JPG)
  */
-const PNG_PLAYER_IMAGES = new Set([
-  'dame-sarr',
-  'karim-lopez',
-  'michael-ruzic',
-]);
+const PNG_PLAYER_IMAGES = new Set([]);
 
 /**
  * Team name aliases to map player data team names to logo file names

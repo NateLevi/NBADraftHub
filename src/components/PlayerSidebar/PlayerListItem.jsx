@@ -1,9 +1,9 @@
 import { ListItem, ListItemAvatar, ListItemText, Avatar, Chip, Box, Typography } from '@mui/material';
-import { 
-  getPlayerItemStyles, 
-  playerNameStyles, 
-  playerInfoStyles, 
-  getRankChipStyles 
+import {
+  getPlayerItemStyles,
+  playerNameStyles,
+  playerInfoStyles,
+  getRankChipStyles
 } from '../../utils/Sidebar/sidebarStyles';
 
 function PlayerListItem({ player, isSelected, onClick }) {
@@ -15,8 +15,8 @@ function PlayerListItem({ player, isSelected, onClick }) {
     >
       {/* Player Avatar */}
       <ListItemAvatar>
-        <Avatar 
-          src={player.photoUrl} 
+        <Avatar
+          src={player.photoUrl}
           sx={{ width: 40, height: 40 }}
         >
           {player.name.charAt(0)}
@@ -30,7 +30,7 @@ function PlayerListItem({ player, isSelected, onClick }) {
             <Typography variant="body2" sx={playerNameStyles}>
               {player.name}
             </Typography>
-            <Chip 
+            <Chip
               label={`#${player.consensusRank}`}
               size="small"
               sx={getRankChipStyles(isSelected)}

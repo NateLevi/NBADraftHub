@@ -6,6 +6,7 @@ import { getPlayerData } from '../data/players/api';
 import { mergeDraftData } from '../utils/mergeDraftData';
 import tankathonMarkdown from '../data/fireCrawl/DraftmdFiles/tankathon.md?raw';
 import nbaDraftNetMarkdown from '../data/fireCrawl/DraftmdFiles/nbadraft-net.md?raw';
+import espnMarkdown from '../data/fireCrawl/DraftmdFiles/espn.md?raw';
 
 // Always use Workers KV for fast loading (data is pre-merged)
 // Set VITE_USE_WORKERS_KV=false to use live APIs for testing
@@ -31,6 +32,7 @@ export function useDraftData() {
     sourceCounts: {
       tankathon: 0,
       nbaDraftNet: 0,
+      espn: 0,
     }
   });
 
@@ -60,10 +62,11 @@ export function useDraftData() {
         const barttorvikData = await getPlayerData();
         console.log('API Response - First Player:', barttorvikData[0]);
 
-        // Merge all sources
+        // Merge all sources (Tankathon + NBADraft.net + ESPN)
         const mergeResult = mergeDraftData({
           tankathonMarkdown,
           nbaDraftNetMarkdown,
+          espnMarkdown,
           barttorvikData,
         });
 
@@ -98,6 +101,7 @@ export function useDraftData() {
         consensus: p.consensusRank,
         tankathon: p.tankathonRank,
         nbaDraftNet: p.nbaDraftNetRank,
+        espn: p.espnRank,
       })));
 
       setPlayers(mergedPlayers);

@@ -32,8 +32,8 @@ const COLORS = {
 const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
   const navigate = useNavigate();
 
-  // Use tankathonRank from new data structure
-  const rank = player?.tankathonRank;
+  // Use consensusRank (average of Tankathon + NBADraft.net) for display, rounded to whole number
+  const rank = player?.consensusRank ? Math.round(player.consensusRank) : null;
 
   const handlePlayerClick = () => {
     if (player?.id) {
@@ -53,9 +53,9 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
 
   return (
     <Box sx={{ flex: 1, maxWidth: 400 }}>
-      <Paper 
+      <Paper
         elevation={2}
-        sx={{ 
+        sx={{
           backgroundColor: COLORS.background,
           border: `1px solid ${COLORS.border}`,
           borderRadius: '12px',
@@ -64,13 +64,13 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
       >
         {/* Player Header */}
         <Box sx={{ p: 4, borderBottom: `1px solid ${COLORS.border}`, textAlign: 'center' }}>
-          <Avatar 
-            src={player?.photoUrl} 
+          <Avatar
+            src={player?.photoUrl}
             onClick={handlePlayerClick}
-            sx={{ 
-              width: 80, 
-              height: 80, 
-              mx: 'auto', 
+            sx={{
+              width: 80,
+              height: 80,
+              mx: 'auto',
               mb: 2,
               border: `2px solid ${COLORS.primary}`,
               cursor: 'pointer',
@@ -82,11 +82,11 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
           >
             {player?.name?.charAt(0)}
           </Avatar>
-          
-          <Typography 
-            variant="h4" 
+
+          <Typography
+            variant="h4"
             onClick={handlePlayerClick}
-            sx={{ 
+            sx={{
               fontWeight: 'bold',
               color: COLORS.text,
               fontFamily: '"Oswald", sans-serif',
@@ -100,9 +100,9 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
           >
             {player?.name}
           </Typography>
-          
+
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mb: 1 }}>
-            <Chip 
+            <Chip
               label={`#${rank || 'NR'}`}
               size="small"
               sx={{
@@ -112,7 +112,7 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
                 fontWeight: '600'
               }}
             />
-            <Chip 
+            <Chip
               label={player?.position}
               size="small"
               sx={{
@@ -122,10 +122,10 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
               }}
             />
           </Box>
-          
-          <Typography 
-            variant="body2" 
-            sx={{ 
+
+          <Typography
+            variant="body2"
+            sx={{
               color: COLORS.secondary,
               fontFamily: '"Lato", sans-serif'
             }}
@@ -133,17 +133,17 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
             {player?.currentTeam}
           </Typography>
         </Box>
-        
+
         {/* Stats Table */}
         <Table size="medium">
           <TableBody>
             {statsComparison.map((stat, index) => {
               const playerStats = getStatForComparison(stat);
-              
+
               return (
                 <TableRow key={index}>
-                  <TableCell 
-                    sx={{ 
+                  <TableCell
+                    sx={{
                       fontWeight: '500',
                       color: COLORS.secondary,
                       fontFamily: '"Lato", sans-serif',
@@ -153,8 +153,8 @@ const PlayerCard = ({ player, statsComparison, isPlayerA }) => {
                   >
                     {stat.stat}
                   </TableCell>
-                  <TableCell 
-                    sx={{ 
+                  <TableCell
+                    sx={{
                       backgroundColor: playerStats.backgroundColor,
                       fontFamily: '"Lato", sans-serif',
                       fontWeight: '600',
@@ -193,15 +193,15 @@ const CompareCard = ({ playerA, playerB }) => {
         mb: 4,
         flexWrap: { xs: 'wrap', md: 'nowrap' }
       }}>
-        <PlayerCard 
-          player={playerA} 
-          statsComparison={statsComparison} 
-          isPlayerA={true} 
+        <PlayerCard
+          player={playerA}
+          statsComparison={statsComparison}
+          isPlayerA={true}
         />
-        <PlayerCard 
-          player={playerB} 
-          statsComparison={statsComparison} 
-          isPlayerA={false} 
+        <PlayerCard
+          player={playerB}
+          statsComparison={statsComparison}
+          isPlayerA={false}
         />
       </Box>
     </Box>

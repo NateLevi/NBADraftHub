@@ -11,9 +11,10 @@ const PlayerHero = ({ player }) => {
   const [teamBranding, setTeamBranding] = useState(defaultTeamBranding);
 
   // Calculate player data - adapted for new data structure
-  const playerRank = player?.tankathonRank;
-  // Get NBA team that owns this pick
-  const nbaTeamCode = playerRank ? draftOrderMapping[playerRank.toString()] : null;
+  // Use displayRank for unique ranking (1-60), falls back to rounded consensusRank
+  const playerRank = player?.displayRank || (player?.consensusRank ? Math.round(player.consensusRank) : null);
+  // Get NBA team that owns this pick (use tankathonRank for draft order mapping)
+  const nbaTeamCode = player?.tankathonRank ? draftOrderMapping[player.tankathonRank.toString()] : null;
   const nbaTeamName = nbaTeamCode ? getNBATeamName(nbaTeamCode) : null;
   const nbaTeamLogoUrl = nbaTeamCode ? getNBATeamLogoUrl(nbaTeamCode) : null;
   // Use pre-calculated age or heightDisplay from new data structure
@@ -42,7 +43,7 @@ const PlayerHero = ({ player }) => {
 
     const teamInfo = teamData[player.currentTeam];
     const logoUrl = getTeamLogoUrl(player.currentTeam);
-    
+
     if (teamInfo) {
       setTeamBranding({
         name: player.currentTeam,
@@ -71,7 +72,7 @@ const PlayerHero = ({ player }) => {
   };
 
   return (
-    <div 
+    <div
       className="relative w-full min-h-[400px] rounded-lg shadow-lg overflow-hidden"
       style={backgroundStyle}
     >
@@ -87,7 +88,7 @@ const PlayerHero = ({ player }) => {
 
       {/* Main content */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-6 p-6 md:p-8 h-full items-end">
-        
+
         {/* Player image */}
         <motion.div
           className="flex justify-center md:justify-start"
@@ -99,8 +100,8 @@ const PlayerHero = ({ player }) => {
             src={player.photoUrl || DEFAULT_PLAYER_IMAGE}
             alt={`${playerName} headshot`}
             className="h-64 md:h-80 object-contain rounded-2xl"
-            onError={(e) => { 
-              e.target.src = 'https://placehold.co/300x400/CCCCCC/666666?text=No+Image'; 
+            onError={(e) => {
+              e.target.src = 'https://placehold.co/300x400/CCCCCC/666666?text=No+Image';
             }}
           />
         </motion.div>
@@ -182,7 +183,7 @@ const PlayerHero = ({ player }) => {
                   </Typography>
                 </div>
               )}
-              
+
               {height && (
                 <div>
                   <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.8)', display: 'block' }}>
@@ -193,7 +194,7 @@ const PlayerHero = ({ player }) => {
                   </Typography>
                 </div>
               )}
-              
+
               {weight && (
                 <div>
                   <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.8)', display: 'block' }}>

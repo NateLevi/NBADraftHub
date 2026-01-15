@@ -24,7 +24,7 @@ export const processPlayersWithRanks = (players, scouts) => {
 // Filter players by search term
 export const filterPlayersBySearch = (players, searchTerm) => {
   if (!searchTerm.trim()) return players;
-  
+
   return players.filter(player =>
     player.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -56,11 +56,11 @@ export const sortPlayers = (players, sortBy) => {
 export const processPlayers = (players, scouts, searchTerm, sortBy, positionFilter) => {
   // Add consensus ranks
   const playersWithRanks = processPlayersWithRanks(players, scouts);
-  
+
   // Apply filters
   let filteredPlayers = filterPlayersBySearch(playersWithRanks, searchTerm);
   filteredPlayers = filterPlayersByPosition(filteredPlayers, positionFilter);
-  
+
   // Sort players
   return sortPlayers(filteredPlayers, sortBy);
 }; 

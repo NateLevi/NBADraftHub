@@ -7,8 +7,9 @@
     "update:tankathon": "node scripts/updateTankathon.js",
     "update:nbadraftnet": "node scripts/updateNBADraftNet.js",
     "update:nbadraftroom": "node scripts/updateNBADraftRoom.js",
+    "update:espn": "node scripts/updateESPN.js",
     "update:international": "node scripts/scrapeInternationalStats.js",
-    "update:all": "node scripts/updateTankathon.js && node scripts/updateNBADraftNet.js && node scripts/updateNBADraftRoom.js && node scripts/scrapeInternationalStats.js"
+    "update:all": "node scripts/updateTankathon.js && node scripts/updateNBADraftNet.js && node scripts/updateNBADraftRoom.js && node scripts/updateESPN.js && node scripts/scrapeInternationalStats.js"
   },
   "dependencies": {
     "@mendable/firecrawl-js": "^1.0.0",

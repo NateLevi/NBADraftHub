@@ -48,12 +48,33 @@ export function useDraftData() {
         // Production: Fetch pre-merged data from Workers KV
         console.log('Fetching from Workers KV (production mode)...');
 
-        const kvData = await fetchDraftDataFromKV();
-        mergedPlayers = kvData.players;
-        stats = kvData.matchStats;
+        try {
+          const kvData = await fetchDraftDataFromKV();
+          mergedPlayers = kvData.players;
+          stats = kvData.matchStats;
 
-        console.log(`Loaded ${mergedPlayers.length} players from Workers KV`);
-        console.log(`Data last updated: ${kvData.updatedAt}`);
+          console.log(`Loaded ${mergedPlayers.length} players from Workers KV`);
+          console.log(`Data last updated: ${kvData.updatedAt}`);
+        } catch (kvError) {
+          // Fallback to live APIs if Workers KV fails
+          console.warn('Workers KV fetch failed, falling back to live APIs:', kvError);
+          console.log('Fetching from live APIs (fallback mode)...');
+
+          // Fetch Barttorvik data from API
+          const barttorvikData = await getPlayerData();
+          console.log('API Response - First Player:', barttorvikData[0]);
+
+          // Merge all sources (Tankathon + NBADraft.net + ESPN)
+          const mergeResult = mergeDraftData({
+            tankathonMarkdown,
+            nbaDraftNetMarkdown,
+            espnMarkdown,
+            barttorvikData,
+          });
+
+          mergedPlayers = mergeResult.players;
+          stats = mergeResult.matchStats;
+        }
       } else {
         // Development: Fetch from live APIs and merge
         console.log('Fetching from live APIs (development mode)...');
